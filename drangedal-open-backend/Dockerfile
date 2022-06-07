@@ -5,7 +5,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["drangedal-open-backend/drangedal-open-backend.csproj", "drangedal-open-backend/"]
+COPY ["drangedal-open-backend.csproj", "drangedal-open-backend/"]
 RUN dotnet restore "drangedal-open-backend/drangedal-open-backend.csproj"
 COPY . .
 WORKDIR "/src/drangedal-open-backend"
