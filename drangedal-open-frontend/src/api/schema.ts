@@ -3,11 +3,17 @@ export enum MatchType {
 	SemiFinal = 1
 
 }
+export enum status {
+	NotStarted =0,
+	Started = 1,
+	Stopped = 2,
+	Canceled = 3
+}
 export interface User {
 	userId: number
 	firstName: string
 	lastName: string
-	email?: string
+	email: string
 	profilePicture?: string
 	rating: number
 }
