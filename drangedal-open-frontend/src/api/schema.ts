@@ -12,6 +12,11 @@ export interface User {
 	rating: number
 }
 
+export interface LoginInfo {
+	email: string
+	password: string
+}
+
 export interface Match {
 	matchId: number
 	date: string
