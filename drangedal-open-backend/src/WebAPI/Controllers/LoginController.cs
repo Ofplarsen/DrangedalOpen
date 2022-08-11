@@ -25,7 +25,7 @@ public class LoginController : ControllerBase
     }
     //[Authorize(Roles = "Admin")]
     [AllowAnonymous]
-    [HttpPost(Name = "GetWeatherForecast")]
+    [HttpPost]
     public ActionResult<User> Login([FromBody]UserLogin user)
     {
         try
@@ -69,8 +69,6 @@ public class LoginController : ControllerBase
     
     private User AuthenticateUser(UserLogin login)
     {
-          
-    
         //Validate the User Credentials    
         //Demo Purpose, I have Passed HardCoded User Information    
         return login.Username == "123" ? new User { Username = "Jignesh Trivedi",Email = "test.btest@gmail.com" }
