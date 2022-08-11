@@ -1,6 +1,6 @@
 namespace Common.Models.Login;
 
-public class UserRegister
+public struct UserRegister
 {
     public string Username { get; set; }
     public string Email { get; set; }

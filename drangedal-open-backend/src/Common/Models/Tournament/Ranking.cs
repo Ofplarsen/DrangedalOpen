@@ -1,6 +1,6 @@
 namespace Common.Models.Tournament;
 
-public class Ranking
+public struct Ranking
 {
     public int Rating { get; set; }
     public int GamesWon { get; set; }

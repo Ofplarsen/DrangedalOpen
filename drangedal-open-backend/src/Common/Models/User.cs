@@ -1,6 +1,6 @@
 namespace Common.Models;
 
-public class User
+public struct User
 {
     public string Username { get; set; }
     public string Email { get; set; }
