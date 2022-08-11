@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Common.Models;
@@ -22,7 +23,7 @@ public class LoginController : ControllerBase
         _logger = logger;
         _config = config;
     }
-    
+    //[Authorize(Roles = "Admin")]
     [AllowAnonymous]
     [HttpPost(Name = "GetWeatherForecast")]
     public ActionResult<User> Login([FromBody]UserLogin user)
@@ -30,7 +31,7 @@ public class LoginController : ControllerBase
         try
         {
             User u = AuthenticateUser(user);
-            return Ok(new {token = GenerateJsonWebToken(), u});
+            return Ok(new {token = GenerateJsonWebToken(user)});
         }
         catch (NotAuthorizedException e)
         {
@@ -38,14 +39,28 @@ public class LoginController : ControllerBase
         }
     }
     
-    private string GenerateJsonWebToken()    
+    private string GenerateJsonWebToken(UserLogin user)    
     {    
+        
+        var claims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub,user.Username),
+            // this guarantees the token is unique
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            //Adds roles to jwt
+            new Claim(ClaimTypes.Role, Roles.Admin.ToString()),
+            new Claim(ClaimTypes.Role, Roles.User.ToString())
+        };
+        
+        //Get users role:
+        
+        
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));    
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);    
     
         var token = new JwtSecurityToken(_config["Jwt:Issuer"],    
             _config["Jwt:Issuer"],    
-            null,    
+            claims,    
             expires: DateTime.Now.AddMinutes(120),    
             signingCredentials: credentials);    
     
