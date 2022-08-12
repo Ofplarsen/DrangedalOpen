@@ -32,7 +32,13 @@ public class UserController : ControllerBase
         return Ok();
     }
     
-    [HttpGet("{id}")]
+    [HttpPut("update")]
+    public ActionResult UpdateUser([FromBody] User user, [FromQuery] Guid id)
+    {
+        return Ok();
+    }
+    
+    [HttpGet]
     public ActionResult GetUser([FromQuery] string id)
     {
         return Ok();
