@@ -24,12 +24,7 @@ public class UserController : ControllerBase
     {
         _logger = logger;
     }
-    //[Authorize(Roles = "Admin")]
-    [HttpGet("{id}")]
-    public ActionResult<Tournament> Login()
-    {
-        return Ok(new Tournament() {Name = "Name", TournamentGuid = Guid.NewGuid()});
-    }
+    
 
     [HttpPost("register")]
     public ActionResult RegisterUser()

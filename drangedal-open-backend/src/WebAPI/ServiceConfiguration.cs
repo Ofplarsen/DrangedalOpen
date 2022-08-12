@@ -1,9 +1,11 @@
 using System.Text;
+using Common.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-
+using InternalServices.Service.Interfaces;
+using InternalServices.Service;
 namespace WebAPI;
 
 public static class ServiceConfiguration
@@ -26,6 +28,8 @@ public static class ServiceConfiguration
                 };    
             }); 
         
+        service.AddScoped<IAuthenticationService, AuthenticationService>();
+        service.AddScoped<IUserService, UserService>();
         return service;
     }
 }

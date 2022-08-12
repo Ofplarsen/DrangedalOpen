@@ -4,8 +4,9 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Common.Models;
 using Common.Models.Login;
-using Microsoft.AspNetCore.Authorization;
+using InternalServices.Service.Interfaces;
 using Common.Exceptions;
+using Common.Models.DTOs;
 using Microsoft.IdentityModel.Tokens;
 
 namespace WebAPI.Controllers;
@@ -16,22 +17,24 @@ public class LoginController : ControllerBase
 {
     
     private readonly ILogger<LoginController> _logger;
-    private readonly IConfiguration _config;
-    
-    public LoginController(ILogger<LoginController> logger, IConfiguration config)
+    private readonly IAuthenticationService _authentication;
+    private readonly IUserService _userService;
+    public LoginController(ILogger<LoginController> logger, IAuthenticationService authentication, IUserService userService )
     {
         _logger = logger;
-        _config = config;
+        _authentication = authentication;
+        _userService = userService;
     }
     //[Authorize(Roles = "Admin")]
-    [AllowAnonymous]
+    [Microsoft.AspNetCore.Authorization.AllowAnonymous]
     [HttpPost]
-    public ActionResult<User> Login([FromBody]UserLogin user)
+    public ActionResult<TokenUserDTO> Login([FromBody]UserLogin user)
     {
         try
         {
-            User u = AuthenticateUser(user);
-            return Ok(new {token = GenerateJsonWebToken(user)});
+            string token = _authentication.AuthenticateUser(user);
+            User userInfo = _userService.GetUser(user.Username);
+            return Ok(new TokenUserDTO(){Token = token, User = userInfo});
         }
         catch (NotAuthorizedException e)
         {
@@ -39,39 +42,4 @@ public class LoginController : ControllerBase
         }
     }
     
-    private string GenerateJsonWebToken(UserLogin user)    
-    {    
-        
-        var claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub,user.Username),
-            // this guarantees the token is unique
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            //Adds roles to jwt
-            new Claim(ClaimTypes.Role, Roles.Admin.ToString()),
-            new Claim(ClaimTypes.Role, Roles.User.ToString())
-        };
-        
-        //Get users role:
-        
-        
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));    
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);    
-    
-        var token = new JwtSecurityToken(_config["Jwt:Issuer"],    
-            _config["Jwt:Issuer"],    
-            claims,    
-            expires: DateTime.Now.AddMinutes(120),    
-            signingCredentials: credentials);    
-    
-        return new JwtSecurityTokenHandler().WriteToken(token);    
-    }    
-    
-    private User AuthenticateUser(UserLogin login)
-    {
-        //Validate the User Credentials    
-        //Demo Purpose, I have Passed HardCoded User Information    
-        return login.Username == "123" ? new User { Username = "Jignesh Trivedi",Email = "test.btest@gmail.com" }
-            : throw new NotAuthorizedException("Wrong login");    
-    }    
 }
