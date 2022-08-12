@@ -1,6 +1,6 @@
 namespace Common.Models.Tournament;
 
-public struct Match
+public class Match
 {
     public Guid MatchGuid { get; set; } = Guid.NewGuid();
     public Player HomePlayer { get; set; }
