@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <Folder Include="DataAccess\Interfaces" />
+      <Folder Include="DataAccess\Sql" />
       <Folder Include="Repository\Interfaces" />
     </ItemGroup>
 

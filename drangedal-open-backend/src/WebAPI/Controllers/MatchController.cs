@@ -30,4 +30,10 @@ public class MatchController : ControllerBase
     {
         throw new NotImplementedException();
     }
+    
+    [HttpPut()]
+    public ActionResult<Match> EditMatch([FromQuery] Guid id, [FromBody] Match match)
+    {
+        throw new NotImplementedException();
+    }
 }

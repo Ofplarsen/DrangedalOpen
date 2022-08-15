@@ -29,18 +29,18 @@ public class UserController : ControllerBase
     [HttpPost("register")]
     public ActionResult RegisterUser()
     {
-        return Ok();
+        throw new NotImplementedException();
     }
     
     [HttpPut("update")]
     public ActionResult UpdateUser([FromBody] User user, [FromQuery] Guid id)
     {
-        return Ok();
+        throw new NotImplementedException();
     }
     
     [HttpGet]
     public ActionResult GetUser([FromQuery] string id)
     {
-        return Ok();
+        throw new NotImplementedException();
     }
 }
