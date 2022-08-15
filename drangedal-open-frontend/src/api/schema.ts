@@ -3,19 +3,35 @@ export enum MatchType {
 	SemiFinal = 1
 
 }
-export enum status {
-	NotStarted =0,
-	Started = 1,
-	Stopped = 2,
-	Canceled = 3
+export interface MatchRules {
+	matchType: MatchType
+	scoreToWin: number
 }
+
 export interface User {
-	userId: number
+	username: string
 	firstName: string
 	lastName: string
 	email: string
 	profilePicture?: string
+	phoneNumber: number
+	userStatus: userStatus
+}
+
+export enum userStatus{
+	Active,
+	Disabled
+}
+
+export interface Player {
+	user: User
+	ranking: Ranking
+}
+
+export interface Ranking{
 	rating: number
+	gamesWon: number
+	gamesLost: number
 }
 
 export interface LoginInfo {
@@ -24,20 +40,18 @@ export interface LoginInfo {
 }
 
 export interface Match {
-	matchId: number
-	date: string
-	home: User[]
-	away: User[]
-	scoreHome: number
-	scoreAway: number
-	type: MatchType
+	matchGuid: string
+	homePlayer: User[]
+	awayPlayer: User[]
+	homeScore: number
+	awayScore: number
+	matchRules: MatchRules
 }
 
 export interface Tournament {
-	tournamentId: number
+	tournamentId: string
 	matches: Match[]
-	startDate: string
-	endDate: string
+	name: string
 }
 
 

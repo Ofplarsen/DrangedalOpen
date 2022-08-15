@@ -1,20 +1,8 @@
 import { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 import axios from 'axios'
+import {User} from "../api/schema";
 
-export interface User {
-  id: number
-  firstName: string
-  lastName: string
-  username: string
-  email: string
-  address: string
-  postalcode: string
-  phonenumber: string
-  pictureUrl?: string
-  verified: boolean
-  trusted: boolean
-}
 
 export interface State {
   user?: User

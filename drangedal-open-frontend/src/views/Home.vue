@@ -3,23 +3,11 @@ import {Match, MatchType, User} from "../api/schema";
 import MatchSetup from "../components/MatchSetup.vue";
 
 const users: User[] = [
-  {
-    userId: 1,
-    firstName: "olav",
-    lastName: "larsen",
-    email: "test@gmail.com",
-    rating: 1000
-  },
-  {
-    userId: 2,
-    firstName: "amund",
-    lastName: "Strom",
-    email: "tes2t@gmail.com",
-    rating: 1000
-  }
+
 ]
 
 const matches: Match[] = [
+    /*
   {
     matchId: 1,
     date: "date",
@@ -47,6 +35,8 @@ const matches: Match[] = [
     scoreAway: 0,
     type: MatchType.Final
   }
+
+     */
 ]
 </script>
 

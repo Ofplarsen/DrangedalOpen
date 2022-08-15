@@ -14,7 +14,7 @@ import {PostUserLoginRequest} from "../api/user/login";
 let router = useRouter()
 
 const schema = yup.object({
-	email: yup.string().required('Epost er påkrevd').email('Ikke gyldig'),
+  username: yup.string().required('Username er påkrevd').label('Ikke gyldig'),
 	password: yup
 		.string()
 		.required('Passord er påkrevd')
@@ -25,7 +25,7 @@ const { errors } = useForm({
 	validationSchema: schema,
 })
 
-const { value: email } = useField<string>('email')
+const { value: username } = useField<string>('username')
 const { value: password } = useField<string>('password')
 
 type Status = 'loading' | 'loaded' | 'error'
@@ -34,7 +34,7 @@ const loginStatus = ref<Status>()
 async function logIn() {
 	loginStatus.value = 'loading'
 	const data: PostUserLoginRequest = {
-		email: email.value,
+		username: username.value,
 		password: password.value,
 	}
 	try {
@@ -50,9 +50,9 @@ async function logIn() {
 
 const notValid = computed(
 	() =>
-		!!errors.value.email ||
+		!!errors.value.username ||
 		!!errors.value.password ||
-		email.value == undefined ||
+      username.value == undefined ||
 		password.value == undefined
 )
 </script>
@@ -62,10 +62,10 @@ const notValid = computed(
 		<h1>Logg inn</h1>
 		<form data-testid="login-form" @submit.prevent="logIn()">
 			<BaseInput
-				data-testid="email-input"
-				v-model="email"
-				label="Email"
-				:error="errors.email"
+				data-testid="username-input"
+				v-model="username"
+				label="Username"
+				:error="errors.username"
 			/>
 
 			<BaseInput

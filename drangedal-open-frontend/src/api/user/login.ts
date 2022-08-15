@@ -1,7 +1,7 @@
 import { User } from '../schema'
 
 export type PostUserLoginRequest = {
-	email: string
+	username: string
 	password: string
 }
 
