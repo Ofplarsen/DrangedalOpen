@@ -15,7 +15,9 @@ public class DbConnection : IDbConnection
     
     public NpgsqlConnection Connect()
     {
-        return new NpgsqlConnection(GetConnectionString());
+        var con = new NpgsqlConnection(GetConnectionString());
+        con.Open();
+        return con;
     }
 
     private string GetConnectionString()

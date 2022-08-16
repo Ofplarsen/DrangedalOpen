@@ -18,9 +18,7 @@ public class UserDA : IUserDA
     public User CreateUser(UserRegister user)
     {
         using var con = _connection.Connect();
-        using var cmd = new NpgsqlCommand();
-        cmd.Connection = con;
-        cmd.CommandText = UserSql.RegisterUser(user);
+        using var cmd = new NpgsqlCommand(UserSql.RegisterUser(user), con);
 
         cmd.ExecuteNonQuery();
         return null;
