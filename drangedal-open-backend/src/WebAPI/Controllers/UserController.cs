@@ -7,29 +7,32 @@ using Common.Models.Login;
 using Microsoft.AspNetCore.Authorization;
 using Common.Exceptions;
 using Common.Models.Tournament;
+using InternalServices.Service.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
 namespace WebAPI.Controllers;
 
 [ApiController]
 //Used to make sure token is used
-[Authorize]
+//[Authorize]
 [Route("api/v1/[controller]")]
 public class UserController : ControllerBase
 {
     
     private readonly ILogger<UserController> _logger;
-
-    public UserController(ILogger<UserController> logger)
+    private readonly IUserService _userService;
+    public UserController(ILogger<UserController> logger, IUserService userService)
     {
         _logger = logger;
+        _userService = userService;
     }
     
 
     [HttpPost("register")]
-    public ActionResult RegisterUser()
+    public ActionResult RegisterUser([FromBody] UserRegister user)
     {
-        throw new NotImplementedException();
+        _userService.CreateUser(user);
+        return Ok();
     }
     
     [HttpPut("update")]

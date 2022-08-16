@@ -1,5 +1,11 @@
 using System.Text;
+using Common.Database;
 using Common.Models;
+using Common.Options;
+using InternalServices.DataAccess;
+using InternalServices.DataAccess.Interfaces;
+using InternalServices.Repository;
+using InternalServices.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,6 +36,19 @@ public static class ServiceConfiguration
         
         service.AddScoped<IAuthenticationService, AuthenticationService>();
         service.AddScoped<IUserService, UserService>();
+        service.AddSingleton(new DatabaseOption()
+        {
+            Db = config.GetValue<string>("Database:Db"),
+            Host = config.GetValue<string>("Database:Host"), Password = config.GetValue<string>("Database:Password"),
+            Username = config.GetValue<string>("Database:Username")
+        });
+        service.AddScoped<IDbConnection, DbConnection>();
+        
+        
+        //Services
+        service.AddScoped<IUserService, UserService>();
+        service.AddScoped<IUserRepository, UserRepository>();
+        service.AddScoped<IUserDA, UserDA>();
         return service;
     }
 }

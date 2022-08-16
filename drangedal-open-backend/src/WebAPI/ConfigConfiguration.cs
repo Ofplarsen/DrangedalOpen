@@ -10,5 +10,6 @@ public static class ConfigConfiguration
         config.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
         
         return config;
-    } 
+    }
+    
 }
