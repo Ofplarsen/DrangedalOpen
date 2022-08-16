@@ -30,10 +30,11 @@ public class TournamentController : ControllerBase
     {
         return Ok(new Tournament() {Name = "Name", TournamentGuid = Guid.NewGuid()});
     }
-    
+    /*
     [HttpGet()]
     public ActionResult<List<Tournament>> GetTournaments()
     {
         return Ok(new Tournament() {Name = "Name", TournamentGuid = Guid.NewGuid()});
     }
+    */
 }
