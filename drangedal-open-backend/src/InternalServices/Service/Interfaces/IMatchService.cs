@@ -13,4 +13,6 @@ public interface IMatchService
     public void UpdateMatch(Match match, Guid id);
 
     public void DeleteMatch(Guid id);
+
+    public void MatchResult(Match match);
 }

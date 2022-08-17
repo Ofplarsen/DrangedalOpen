@@ -49,6 +49,10 @@ public static class ServiceConfiguration
         service.AddScoped<IUserService, UserService>();
         service.AddScoped<IUserRepository, UserRepository>();
         service.AddScoped<IUserDA, UserDA>();
+        service.AddScoped<IRatingService, RatingService>();
+        service.AddScoped<IRankingRepository, RankingRepository>();
+        service.AddScoped<IRankingDA, RankingDA>();
+        service.AddScoped<IMatchService, MatchService>();
         return service;
     }
 }
