@@ -1,0 +1,57 @@
+DROP TABLE IF EXISTS "user" CASCADE;
+DROP TABLE IF EXISTS Player CASCADE;
+DROP TABLE IF EXISTS Ranking CASCADE;
+DROP TABLE IF EXISTS Match CASCADE;
+DROP TABLE IF EXISTS Tournament CASCADE;
+DROP TABLE IF EXISTS TournamentMatch CASCADE;
+DROP TABLE IF EXISTS MatchType CASCADE;
+DROP TABLE IF EXISTS MatchRules CASCADE;
+
+CREATE TABLE "user" (
+                        username varchar(50) primary key,
+                        firstName varchar(255),
+                        lastName varchar(255),
+                        phoneNumber int,
+                        email varchar(255),
+                        password varchar(255)
+);
+
+CREATE TABLE Player (
+    username varchar(50) primary key REFERENCES "user" (username)
+);
+
+CREATE TABLE Ranking (
+                         rating int default 1000,
+                         gamesWon int default 0,
+                         gamesLost int default 0,
+                         username varchar(50) REFERENCES Player(username)
+);
+
+
+CREATE TABLE Match (
+                       matchGuid uuid PRIMARY KEY,
+                       playerHome varchar(50) REFERENCES Player(username),
+                       playerAway varchar(50) REFERENCES Player(username),
+                       scoreHome int default 0,
+                       scoreAway int default 0
+);
+
+CREATE TABLE Tournament (
+                            tournamentGuid uuid PRIMARY KEY,
+                            name varchar(255) not null
+);
+
+CREATE TABLE TournamentMatch (
+                                 tournamentGuid uuid REFERENCES Tournament(tournamentGuid),
+                                 matchGuid uuid REFERENCES Match(matchGuid)
+);
+
+CREATE TABLE MatchType (
+                           matchTypeId int PRIMARY KEY,
+                           type varchar(255) not null
+);
+
+CREATE TABLE MatchRules (
+                            matchTypeId int REFERENCES MatchType(matchTypeId),
+                            scoreToWin int not null default 11
+);
