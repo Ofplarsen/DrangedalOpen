@@ -34,7 +34,11 @@ public class LoginController : ControllerBase
         {
             string token = _authentication.AuthenticateUser(user);
             User userInfo = _userService.GetUser(user.Username);
-            return Ok(new TokenUserDTO(){Token = token, User = userInfo});
+            return Ok(new TokenUserDTO() {Token = token, User = userInfo});
+        }
+        catch (NotFoundException e)
+        {
+            return Unauthorized(e.Message);
         }
         catch (NotAuthorizedException e)
         {

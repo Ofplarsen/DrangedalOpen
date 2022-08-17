@@ -61,7 +61,10 @@ public class AuthenticationService : IAuthenticationService
 
     private bool CorrectCredentials(UserLogin login)
     {
-        string hashedPassword = _userService.GetUserLogin(login.Username).Password;
+        var user = _userService.GetUserLogin(login.Username);
+        if (user == null)
+            throw new NotFoundException("Username or password is wrong");
+        string hashedPassword = user.Password;
         return PasswordEncryption.Verify(login.Password,hashedPassword);
     }
 }

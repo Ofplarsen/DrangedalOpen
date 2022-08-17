@@ -1,4 +1,5 @@
 using Common.Database;
+using Common.Exceptions;
 using Common.Models;
 using Common.Models.Login;
 using InternalServices.DataAccess.Interfaces;
@@ -27,13 +28,20 @@ public class UserDA : IUserDA
     public UserLogin GetUserLogin(string username)
     {
         using var con = _connection.Connect();
-        using var cmd = new NpgsqlCommand(UserSql.GetUserLogin(username), con);
-        using NpgsqlDataReader rdr = cmd.ExecuteReader();
-        while (rdr.Read())
+        try
         {
-            return ReadUserLogin(rdr);
+            using var cmd = new NpgsqlCommand(UserSql.GetUserLogin(username), con);
+        
+            using NpgsqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                return ReadUserLogin(rdr);
+            }
         }
-
+        catch (Exception e)
+        {
+            throw new NotFoundException("Didn't find user with matching username");
+        }
         return null;
     }
 
