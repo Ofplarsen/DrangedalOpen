@@ -6,4 +6,5 @@ namespace InternalServices.DataAccess.Interfaces;
 public interface IUserDA
 {
     public User CreateUser(UserRegister user);
+    public UserLogin GetUserLogin(string username);
 }

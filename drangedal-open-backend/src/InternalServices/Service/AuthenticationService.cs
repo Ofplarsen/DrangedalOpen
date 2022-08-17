@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Common.Models;
 using Common.Models.Login;
 using Common.Exceptions;
+using Common.Extentions.Encryption;
 using Microsoft.IdentityModel.Tokens;
 
 using InternalServices.Service.Interfaces;
@@ -15,10 +16,11 @@ namespace InternalServices.Service;
 public class AuthenticationService : IAuthenticationService
 {
     private readonly IConfiguration _config;
-
-    public AuthenticationService(IConfiguration config)
+    private readonly IUserService _userService;
+    public AuthenticationService(IConfiguration config, IUserService userService)
     {
         _config = config;
+        _userService = userService;
     }
     
     private string GenerateJsonWebToken(UserLogin user)    
@@ -59,6 +61,7 @@ public class AuthenticationService : IAuthenticationService
 
     private bool CorrectCredentials(UserLogin login)
     {
-        return true;
+        string hashedPassword = _userService.GetUserLogin(login.Username).Password;
+        return PasswordEncryption.Verify(login.Password,hashedPassword);
     }
 }

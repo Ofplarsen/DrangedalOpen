@@ -1,3 +1,4 @@
+using Common.Extentions.Encryption;
 using Common.Models;
 using Common.Models.Login;
 using InternalServices.Repository.Interfaces;
@@ -34,7 +35,13 @@ public class UserService : IUserService
 
     public User CreateUser(UserRegister user)
     {
+        user.Password = PasswordEncryption.Hash(user.Password);
         _userRepository.CreateUser(user);
         return new() {Username = user.Username};
+    }
+
+    public UserLogin GetUserLogin(string username)
+    {
+        return _userRepository.GetUserLogin(username);
     }
 }

@@ -18,4 +18,9 @@ public class UserRepository : IUserRepository
     {
         return _userDa.CreateUser(user);
     }
+
+    public UserLogin GetUserLogin(string username)
+    {
+        return _userDa.GetUserLogin(username);
+    }
 }

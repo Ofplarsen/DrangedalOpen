@@ -12,4 +12,5 @@ public interface IUserService
     public void DisableUser(string username);
 
     public User CreateUser(UserRegister user);
+    public UserLogin GetUserLogin(string username);
 }
