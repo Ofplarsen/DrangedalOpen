@@ -27,13 +27,23 @@ CREATE TABLE Ranking (
                          username varchar(50) REFERENCES Player(username)
 );
 
+CREATE TABLE MatchType (
+                           matchTypeId int PRIMARY KEY,
+                           type varchar(255) not null
+);
+
+CREATE TABLE MatchRules (
+                            matchTypeId int REFERENCES MatchType(matchTypeId),
+                            scoreToWin int not null default 11
+);
 
 CREATE TABLE Match (
                        matchGuid uuid PRIMARY KEY,
                        playerHome varchar(50) REFERENCES Player(username),
                        playerAway varchar(50) REFERENCES Player(username),
                        scoreHome int default 0,
-                       scoreAway int default 0
+                       scoreAway int default 0,
+                       matchTypeId int REFERENCES MatchType(matchTypeId)
 );
 
 CREATE TABLE Tournament (
@@ -46,12 +56,22 @@ CREATE TABLE TournamentMatch (
                                  matchGuid uuid REFERENCES Match(matchGuid)
 );
 
-CREATE TABLE MatchType (
-                           matchTypeId int PRIMARY KEY,
-                           type varchar(255) not null
-);
+INSERT INTO "user"(username, firstName, lastName, phoneNumber, email, password) values ('olavfpl', 'Olav', 'Larsen', 95444369,'xray@gmail.com', '123');
+INSERT INTO player(username) values ('olavfpl');
+insert into ranking(username) VALUES ('olavfpl');
 
-CREATE TABLE MatchRules (
-                            matchTypeId int REFERENCES MatchType(matchTypeId),
-                            scoreToWin int not null default 11
-);
+INSERT INTO "user"(username, firstName, lastName, phoneNumber, email, password) values ('amundfpl', 'Amund', 'Larsen', 95444369,'xray@gmail.com', '123');
+INSERT INTO player(username) values ('amundfpl');
+insert into ranking(username) VALUES ('amundfpl'); 
+
+insert into MatchType(matchTypeId, type) VALUES (0, 'final');
+insert into MatchType(matchTypeId, type) VALUES (1, 'semi');
+insert into MatchType(matchTypeId, type) VALUES (2, 'Quarter');
+insert into MatchType(matchTypeId, type) VALUES (3, 'Group');
+insert into MatchType(matchTypeId, type) VALUES (9, 'Default');
+
+insert into MatchRules(matchTypeId, scoreToWin) VALUES (0, 15);
+insert into MatchRules(matchTypeId, scoreToWin) VALUES (1, 11);
+insert into MatchRules(matchTypeId, scoreToWin) VALUES (2, 9);
+insert into MatchRules(matchTypeId, scoreToWin) VALUES (3, 7);
+insert into MatchRules(matchTypeId, scoreToWin) VALUES (9, 11);

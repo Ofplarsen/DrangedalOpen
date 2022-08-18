@@ -1,6 +1,7 @@
 using Common.Extentions.Encryption;
 using Common.Models;
 using Common.Models.Login;
+using Common.Models.Tournament;
 using InternalServices.Repository.Interfaces;
 using InternalServices.Service.Interfaces;
 namespace InternalServices.Service;
@@ -15,7 +16,7 @@ public class UserService : IUserService
     
     public User GetUser(string username)
     {
-        return new() {Email = "mail@mail.com", Username = username};
+        return _userRepository.GetUser(username);
     }
 
     public List<User> GetUsers()
@@ -43,5 +44,10 @@ public class UserService : IUserService
     public UserLogin GetUserLogin(string username)
     {
         return _userRepository.GetUserLogin(username);
+    }
+
+    public Player GetPlayer(string username)
+    {
+        return _userRepository.GetPlayer(username);
     }
 }

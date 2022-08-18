@@ -6,5 +6,5 @@ public enum MatchType
     Semi,
     Quarter,
     Group,
-    Default
+    Default = 9
 }

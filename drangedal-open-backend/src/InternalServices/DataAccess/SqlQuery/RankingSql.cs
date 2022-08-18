@@ -1,7 +1,7 @@
 using Common.Models.DTOs;
 using Common.Models.Tournament;
 
-namespace InternalServices.DataAccess.Sql;
+namespace InternalServices.DataAccess.SqlQuery;
 
 public static class RankingSql
 {

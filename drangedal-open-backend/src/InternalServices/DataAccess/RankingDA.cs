@@ -1,7 +1,7 @@
 using System.Data;
 using Common.Models.DTOs;
 using InternalServices.DataAccess.Interfaces;
-using InternalServices.DataAccess.Sql;
+using InternalServices.DataAccess.SqlQuery;
 using Npgsql;
 using IDbConnection = Common.Database.IDbConnection;
 

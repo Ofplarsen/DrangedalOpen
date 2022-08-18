@@ -6,6 +6,7 @@ using Common.Models;
 using Common.Models.Login;
 using Microsoft.AspNetCore.Authorization;
 using Common.Exceptions;
+using Common.Models.DTOs;
 using Common.Models.Tournament;
 using InternalServices.Service.Interfaces;
 using Microsoft.IdentityModel.Tokens;
@@ -42,8 +43,29 @@ public class UserController : ControllerBase
     }
     
     [HttpGet]
-    public ActionResult GetUser([FromQuery] string id)
+    public ActionResult<User> GetUser([FromQuery] string username)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return _userService.GetUser(username);
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+    
+    [HttpGet()]
+    [Route("Player")]
+    public ActionResult<Player> GetPlayer([FromQuery] string username)
+    {
+        try
+        {
+            return _userService.GetPlayer(username);
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
     }
 }

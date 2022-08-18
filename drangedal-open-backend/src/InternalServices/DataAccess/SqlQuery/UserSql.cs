@@ -1,6 +1,6 @@
 using Common.Models.Login;
 
-namespace InternalServices.DataAccess.Sql;
+namespace InternalServices.DataAccess.SqlQuery;
 
 public static class UserSql
 {
@@ -16,5 +16,16 @@ public static class UserSql
     public static string GetUserLogin(string username)
     {
         return String.Format("Select username, password from \"user\" where username = '{0}'", username);
+    }
+
+    public static string GetUser(string username)
+    {
+        return String.Format("Select username, firstname, lastname, phonenumber, email from \"user\" where username = '{0}'", username);
+    }
+    
+    public static string GetPlayer(string username)
+    {
+        return String.Format("select p.username, firstname, lastname, phonenumber, email, rating, gameswon, gameslost from " +
+        "\"user\" join player p on \"user\".username = p.username join ranking r on p.username = r.username where \"user\".username = '{0}'", username);
     }
 }

@@ -1,5 +1,6 @@
 using Common.Models;
 using Common.Models.Login;
+using Common.Models.Tournament;
 using InternalServices.DataAccess.Interfaces;
 using InternalServices.Repository.Interfaces;
 
@@ -22,5 +23,15 @@ public class UserRepository : IUserRepository
     public UserLogin GetUserLogin(string username)
     {
         return _userDa.GetUserLogin(username);
+    }
+
+    public User GetUser(string username)
+    {
+        return _userDa.GetUser(username);
+    }
+
+    public Player GetPlayer(string username)
+    {
+        return _userDa.GetPlayer(username);
     }
 }
