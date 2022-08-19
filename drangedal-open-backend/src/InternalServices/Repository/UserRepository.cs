@@ -30,8 +30,5 @@ public class UserRepository : IUserRepository
         return _userDa.GetUser(username);
     }
 
-    public Player GetPlayer(string username)
-    {
-        return _userDa.GetPlayer(username);
-    }
+    
 }

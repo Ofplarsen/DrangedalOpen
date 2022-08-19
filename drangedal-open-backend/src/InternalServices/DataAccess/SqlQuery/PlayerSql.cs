@@ -1,6 +1,6 @@
 namespace InternalServices.DataAccess.SqlQuery;
 
-public class PlayerSql
+public static class PlayerSql
 {
     
 }

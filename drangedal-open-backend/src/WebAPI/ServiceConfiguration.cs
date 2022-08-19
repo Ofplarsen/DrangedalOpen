@@ -55,6 +55,9 @@ public static class ServiceConfiguration
         service.AddScoped<IMatchService, MatchService>();
         service.AddScoped<IMatchDA, MatchDA>();
         service.AddScoped<IMatchRepository, MatchRepository>();
+        service.AddScoped<IPlayerService, PlayerService>();
+        service.AddScoped<IPlayerDA, PlayerDA>();
+        service.AddScoped<IPlayerRepository, PlayerRepository>();
         return service;
     }
 }

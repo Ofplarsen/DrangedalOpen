@@ -55,17 +55,5 @@ public class UserController : ControllerBase
         }
     }
     
-    [HttpGet()]
-    [Route("Player")]
-    public ActionResult<Player> GetPlayer([FromQuery] string username)
-    {
-        try
-        {
-            return _userService.GetPlayer(username);
-        }
-        catch (NotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-    }
+    
 }

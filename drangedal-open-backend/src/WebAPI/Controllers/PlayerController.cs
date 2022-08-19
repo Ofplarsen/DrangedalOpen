@@ -1,3 +1,4 @@
+using Common.Exceptions;
 using Common.Models;
 using Common.Models.Login;
 using Common.Models.Tournament;
@@ -14,23 +15,24 @@ public class PlayerController : ControllerBase
 {
     
     private readonly ILogger<PlayerController> _logger;
-    private readonly IUserService _userService;
-    public PlayerController(ILogger<PlayerController> logger, IUserService userService)
+    private readonly IPlayerService _playerService;
+    public PlayerController(ILogger<PlayerController> logger, IPlayerService playerService)
     {
         _logger = logger;
-        _userService = userService;
+        _playerService = playerService;
     }
-    
-    
-    [HttpPut("update")]
-    public ActionResult UpdateUser([FromBody] User user, [FromQuery] Guid id)
+
+    [HttpGet()]
+    public ActionResult<Player> GetPlayer([FromQuery] string username)
     {
-        throw new NotImplementedException();
-    }
-    
-    [HttpGet]
-    public ActionResult GetUser([FromQuery] string id)
-    {
-        throw new NotImplementedException();
+        try
+        {
+            var player = _playerService.GetPlayer(username);
+            return player == null ? NotFound() : player;
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
     }
 }

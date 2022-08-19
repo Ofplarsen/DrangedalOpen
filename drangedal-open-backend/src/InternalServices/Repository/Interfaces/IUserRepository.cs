@@ -10,6 +10,6 @@ public interface IUserRepository
     public UserLogin GetUserLogin(string username);
     public User GetUser(string username);
 
-    public Player GetPlayer(string username);
+    
     
 }

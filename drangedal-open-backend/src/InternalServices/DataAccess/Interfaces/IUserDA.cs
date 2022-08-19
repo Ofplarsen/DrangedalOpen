@@ -11,6 +11,6 @@ public interface IUserDA
 
     public User GetUser(string username);
 
-    public Player GetPlayer(string username);
+    
     
 }

@@ -46,8 +46,5 @@ public class UserService : IUserService
         return _userRepository.GetUserLogin(username);
     }
 
-    public Player GetPlayer(string username)
-    {
-        return _userRepository.GetPlayer(username);
-    }
+    
 }

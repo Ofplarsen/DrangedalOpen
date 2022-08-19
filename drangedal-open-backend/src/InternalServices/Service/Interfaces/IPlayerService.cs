@@ -1,6 +1,8 @@
+using Common.Models.Tournament;
+
 namespace InternalServices.Service.Interfaces;
 
-public class IPlayerService
+public interface IPlayerService
 {
-    
+    public Player GetPlayer(string username);
 }
