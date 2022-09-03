@@ -4,7 +4,6 @@ import LoadingIndicator from '../components/base/LoadingIndicator.vue'
 import BaseBanner from '../components/base/BaseBanner.vue'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
-import apiRequests from "../requests/api_requests";
 import axios from '../requests/axios'
 import BaseButton from '../components/base/BaseBtn.vue'
 import { ref, computed } from 'vue'

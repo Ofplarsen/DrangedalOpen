@@ -22,13 +22,13 @@ import { UserIcon } from '@heroicons/vue/solid'
 			<div class="flex gap-8 items-center">
 				<router-link to="/">Hjem</router-link>
 				<router-link v-if="store.getters.loggedIn" to="/overview">
-					Ditt
+					Your Matches
 				</router-link>
 				<router-link v-if="store.getters.loggedIn" to="/community">
-					Samfunn
+					Leaderboard
 				</router-link>
 				<router-link v-if="store.getters.loggedIn" to="/chats">
-					Lån
+					Tournaments
 				</router-link>
 				<router-link
 					class="grid place-items-center"
