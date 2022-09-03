@@ -19,4 +19,9 @@ public class PlayerRepository : IPlayerRepository
     {
         return _playerDa.GetPlayer(username);
     }
+
+    public List<Player> GetPlayers()
+    {
+        return _playerDa.GetPlayers();
+    }
 }

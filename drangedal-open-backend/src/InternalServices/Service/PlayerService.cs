@@ -18,4 +18,9 @@ public class PlayerService : IPlayerService
     {
         return _playerRepository.GetPlayer(username);
     }
+
+    public List<Player> GetPlayers()
+    {
+        return _playerRepository.GetPlayers();
+    }
 }

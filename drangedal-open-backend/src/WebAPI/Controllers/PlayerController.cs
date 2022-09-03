@@ -35,4 +35,17 @@ public class PlayerController : ControllerBase
             return NotFound(e.Message);
         }
     }
+    
+    [HttpGet("all")]
+    public ActionResult<List<Player>> GetPlayers()
+    {
+        try
+        {
+            return _playerService.GetPlayers();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
 }

@@ -5,4 +5,5 @@ namespace InternalServices.DataAccess.Interfaces;
 public interface IPlayerDA
 {
     public Player GetPlayer(string username);
+    public List<Player> GetPlayers();
 }

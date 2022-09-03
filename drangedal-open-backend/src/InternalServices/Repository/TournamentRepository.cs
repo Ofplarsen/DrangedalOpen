@@ -1,6 +1,8 @@
+using InternalServices.Repository.Interfaces;
+
 namespace InternalServices.Repository;
 
-public class TournamentRepository
+public class TournamentRepository : ITournamentRepository
 {
     
 }

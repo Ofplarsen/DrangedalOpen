@@ -75,3 +75,4 @@ insert into MatchRules(matchTypeId, scoreToWin) VALUES (1, 11);
 insert into MatchRules(matchTypeId, scoreToWin) VALUES (2, 9);
 insert into MatchRules(matchTypeId, scoreToWin) VALUES (3, 7);
 insert into MatchRules(matchTypeId, scoreToWin) VALUES (9, 11);
+

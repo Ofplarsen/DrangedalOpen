@@ -46,6 +46,8 @@ public static class ServiceConfiguration
         
         
         //Services
+        service.AddScoped<ITournamentService, TournamentService>();
+        service.AddScoped<ITournamentRepository, TournamentRepository>();
         service.AddScoped<IUserService, UserService>();
         service.AddScoped<IUserRepository, UserRepository>();
         service.AddScoped<IUserDA, UserDA>();

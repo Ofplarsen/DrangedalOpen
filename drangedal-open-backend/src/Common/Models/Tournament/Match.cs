@@ -7,5 +7,7 @@ public class Match
     public Player AwayPlayer { get; set; }
     public int HomeScore { get; set; }
     public int AwayScore { get; set; }
+    
     public MatchRules MatchRules { get; set; }
+    
 }

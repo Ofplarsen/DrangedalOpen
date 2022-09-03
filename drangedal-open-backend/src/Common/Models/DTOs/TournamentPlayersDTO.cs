@@ -1,6 +1,7 @@
 namespace Common.Models.DTOs;
 
-public class TournamentDTO
+public class TournamentPlayersDTO
 {
-    
+    public List<String> Players { get; set; }
+    public String Name { get; set; }
 }
