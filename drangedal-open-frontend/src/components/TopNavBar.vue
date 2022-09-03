@@ -11,8 +11,8 @@ import { UserIcon } from '@heroicons/vue/solid'
 		>
 			<router-link to="/">
 				<img
-					src="/BoCo_finished.png"
-					alt="boco logo"
+					src="src/assets/logo.png"
+					alt="Badminton logo"
 					class="w-16"
 					data-bs-toggle="tooltip"
 					data-bs-placement="bottom"
@@ -32,7 +32,7 @@ import { UserIcon } from '@heroicons/vue/solid'
 				</router-link>
 				<router-link
 					class="grid place-items-center"
-					:to="'/user/' + store.state.user?.userId"
+					:to="'/login'"
 				>
 					<img
 						v-if="store.state.user"

@@ -9,8 +9,6 @@ export type PostUserRegisterRequest = {
 	username: string
 	email: string
 	password: string
-	address: string
-	postalCode: string
 	phoneNumber: string
 	profilePicture?: string
 }

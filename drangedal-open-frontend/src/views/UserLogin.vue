@@ -5,7 +5,6 @@ import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 import BaseButton from '../components/base/BaseBtn.vue'
 import { computed, ref } from 'vue'
-import axios from 'axios'
 import { useRouter } from 'vue-router'
 import BaseBanner from '../components/base/BaseBanner.vue'
 import { User } from '../api/schema'
@@ -38,13 +37,16 @@ async function logIn() {
 		password: password.value,
 	}
 	try {
-		await store.dispatch('login', data)
+    console.log(data)
+		await store.dispatch("login",data)
 		console.log('logged in')
 		loginStatus.value = 'loaded'
+    //console.log(store.state.token)
 		await router.push('/')
 	} catch (error: any) {
 		loginStatus.value = 'error'
-		store.dispatch('error', error.response.data)
+    console.log(error.response)
+		await store.dispatch('error', error.response.data)
 	}
 }
 

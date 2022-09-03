@@ -1,6 +1,6 @@
 import { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
-import axios from 'axios'
+import axios from '../requests/axios'
 import {User} from "../api/schema";
 
 
@@ -26,10 +26,9 @@ export const store = createStore<State>({
   mutations: {
     SET_USER_DATA(state, data) {
       console.log(data)
-      state.user = data.userDTO
+      state.user = data.user
       localStorage.setItem('userData', JSON.stringify(data))
-      axios.defaults.headers.common['authorization'] =
-          'Bearer ' + data.token
+      state.token = data.token
     },
 
     //TODO: Fjern asynkron kode i mutations
@@ -40,7 +39,7 @@ export const store = createStore<State>({
   },
   actions: {
     login({ commit }, data) {
-      return axios.post('/user/login', data).then(response => {
+      return axios.post('/login', data).then(response => {
         commit('SET_USER_DATA', response.data)
         console.log(response)
       })
