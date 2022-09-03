@@ -27,8 +27,8 @@ import { UserIcon } from '@heroicons/vue/solid'
 				<router-link v-if="store.getters.loggedIn" to="/community">
 					Leaderboard
 				</router-link>
-				<router-link v-if="store.getters.loggedIn" to="/chats">
-					Tournaments
+				<router-link v-if="store.getters.loggedIn" to="/tournament/new">
+          Create Tournament
 				</router-link>
 				<router-link
 					class="grid place-items-center"

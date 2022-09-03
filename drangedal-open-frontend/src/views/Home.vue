@@ -3,8 +3,11 @@ import {Match, MatchType, User} from "../api/schema";
 import MatchSetup from "../components/MatchSetup.vue";
 
 const users: User[] = [
-
 ]
+
+async function getUsers(){
+
+}
 
 const matches: Match[] = [
     /*
@@ -38,6 +41,8 @@ const matches: Match[] = [
 
      */
 ]
+
+
 </script>
 
 <template>

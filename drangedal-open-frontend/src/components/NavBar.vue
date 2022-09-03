@@ -28,11 +28,11 @@ import {
 			<router-link
 				class="grid place-items-center"
 				v-if="store.getters.loggedIn"
-				to="/community"
+				to="/tournament/new"
 			>
 				<UserGroupIcon class="w-8 h-8" data-testid="community-icon" />
 				<p class="text-slate-300 text-sm" data-testid="community">
-					Samfunn
+					Create Tournament
 				</p>
 			</router-link>
 			<router-link
@@ -45,7 +45,7 @@ import {
 			</router-link>
 			<router-link
 				class="grid place-items-center"
-				:to="'/user/' + store.state.user?.userId"
+				:to="store.getters.loggedIn ? '/user/' + store.state.user?.userId : '/login'"
 			>
 				<img
 					v-if="store.state.user"

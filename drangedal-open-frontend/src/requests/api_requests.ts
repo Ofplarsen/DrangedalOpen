@@ -9,3 +9,7 @@ export async function login(userLogin:PostUserLoginRequest){
     console.log(response)
   })
 }
+
+export async function getPlayers(){
+  return await axios.get('/player/all')
+}
