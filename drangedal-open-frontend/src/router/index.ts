@@ -4,7 +4,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import UserLogin from '../views/UserLogin.vue'
 import UserRegister from '../views/UserRegister.vue'
-import CreateTournament from '../views/CreateTournament.vue'
+import Player from '../views/player/Player.vue'
+import CreateTournament from '../views/tournament/CreateTournament.vue'
 import Leaderboard from '../views/Leaderboard.vue'
 const routes = [
   {
@@ -31,6 +32,13 @@ const routes = [
   {
     path: '/tournament/new',
     component: CreateTournament,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: '/player',
+    component: Player,
     meta: {
       requiresAuth: false,
     },

@@ -13,3 +13,7 @@ export async function login(userLogin:PostUserLoginRequest){
 export async function getPlayers(){
   return await axios.get('/player/all')
 }
+
+export async function getPlayer(username: string){
+  return await axios.get('/player?username="' + username+ '"')
+}
