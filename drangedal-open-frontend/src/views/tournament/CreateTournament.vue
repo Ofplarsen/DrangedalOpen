@@ -1,32 +1,47 @@
 <script setup lang="ts">
-import {Match, MatchType, Player, Tournament, User} from "../../api/schema";
-import MatchSetup from "../../components/MatchSetup.vue";
-import Card from "../../components/Card.vue"
 import { ref } from "vue";
 import { getPlayers } from "../../requests/api_requests";
-import UserCard from "../../components/UserCard.vue";
 import PlayerCard from "../../components/PlayerCard.vue";
 import BaseInput from "../../components/base/BaseInput.vue";
-import {PostTournament} from "../../api/tournament/tournament";
+import { ChosenPlayer, PostTournament } from "../../api/tournament/tournament";
 
-const tournament: PostTournament = {
+const players_picked = ref<ChosenPlayer[]>([])
+const tournament = ref<PostTournament>()
+tournament.value = {
   name: "",
   players: []
 }
 
-
 async function initPlayers(){
+  if (tournament.value == undefined)
+    return
   try{
-    await getPlayers().then(data => {
-      tournament.players = data.data
-    })
-  }catch (err){
-    //console.log(err)
-  }
 
+    await getPlayers().then(data => {
+      if (tournament.value == undefined)
+        return
+      console.log(data)
+      tournament.value.players = data.data
+
+    })
+
+  }catch (err){
+    console.log(err)
+  }
+  tournament.value.players.forEach(p => players_picked.value?.push({chosen: false, player: p}))
+  console.log(players_picked.value)
   return
 }
 
+async function postTournament(){
+  const filteredPlayers = players_picked.value?.filter(player => player.chosen);
+  if(filteredPlayers == undefined || tournament.value == undefined){
+    console.log(tournament.value, filteredPlayers)
+    return
+  }
+  tournament.value.players = filteredPlayers.map(p => p.player);
+  console.log(tournament.value)
+}
 
 initPlayers()
 
@@ -34,11 +49,10 @@ initPlayers()
 
 <template>
   <base-input v-model="tournament.name" label="Tournament name" placeholder="Tournament1"></base-input>
-  <div v-for="player in tournament.players" class="p-2.5">
-    <PlayerCard :player="player" :showRating="true">
+
+  <div v-for="player in players_picked" class="p-2.5">
+    <PlayerCard :player="player.player" :showRating="true" v-model="player.chosen">
     </PlayerCard>
-
   </div>
-  <h2>{{tournament}}</h2>
-
+  <button @click="postTournament">Generate</button>
 </template>
