@@ -5,6 +5,7 @@ import Home from '../views/Home.vue'
 import UserLogin from '../views/UserLogin.vue'
 import UserRegister from '../views/UserRegister.vue'
 import CreateTournament from '../views/CreateTournament.vue'
+import Leaderboard from '../views/Leaderboard.vue'
 const routes = [
   {
     path: '/',
@@ -30,6 +31,13 @@ const routes = [
   {
     path: '/tournament/new',
     component: CreateTournament,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: '/leaderboard',
+    component: Leaderboard,
     meta: {
       requiresAuth: false,
     },
