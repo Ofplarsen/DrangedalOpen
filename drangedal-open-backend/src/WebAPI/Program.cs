@@ -1,3 +1,5 @@
+using System.Net;
+using System.Net.Sockets;
 using WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +15,10 @@ builder.Services.ConfigureService(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+/*
 if (app.Environment.IsDevelopment())
 {
+*/
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseCors(x => x
@@ -23,7 +27,10 @@ if (app.Environment.IsDevelopment())
         .AllowCredentials()
         //.WithOrigins("https://localhost:44351")); // Allow only this origin can also have multiple origins seperated with comma
         .SetIsOriginAllowed(origin => true));// Allow any origin  
-}
+
+//}
+var name = Dns.GetHostName(); // get container id
+var ip = Dns.GetHostEntry(name).AddressList.FirstOrDefault(x => x.AddressFamily == AddressFamily.InterNetwork);
 app.UseAuthentication();
 app.UseAuthorization();
 //app.UseHttpsRedirection();

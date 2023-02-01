@@ -8,6 +8,7 @@ public class Match
     public int HomeScore { get; set; }
     public int AwayScore { get; set; }
     
-    public MatchRules MatchRules { get; set; }
-    
+    public Match NextMatch { get; set; }
+    public MatchRules MatchRules { get; set; } = new MatchRules();
+
 }

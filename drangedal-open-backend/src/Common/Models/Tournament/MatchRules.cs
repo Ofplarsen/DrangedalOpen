@@ -1,7 +1,7 @@
 namespace Common.Models.Tournament;
 
-public struct MatchRules
+public class MatchRules
 {
-    public MatchType MatchType { get; set; }
-    public int ScoreToWin { get; set; }
+    public MatchType MatchType { get; set; } = MatchType.Default;
+    public int ScoreToWin { get; set; } = 11;
 }

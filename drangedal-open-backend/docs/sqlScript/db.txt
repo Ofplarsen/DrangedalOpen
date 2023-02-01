@@ -43,7 +43,8 @@ CREATE TABLE Match (
                        playerAway varchar(50) REFERENCES Player(username),
                        scoreHome int default 0,
                        scoreAway int default 0,
-                       matchTypeId int REFERENCES MatchType(matchTypeId)
+                       matchTypeId int REFERENCES MatchType(matchTypeId),
+                       nextMatch uuid REFERENCES Match(matchGuid)
 );
 
 CREATE TABLE Tournament (
@@ -75,4 +76,4 @@ insert into MatchRules(matchTypeId, scoreToWin) VALUES (1, 11);
 insert into MatchRules(matchTypeId, scoreToWin) VALUES (2, 9);
 insert into MatchRules(matchTypeId, scoreToWin) VALUES (3, 7);
 insert into MatchRules(matchTypeId, scoreToWin) VALUES (9, 11);
-
+insert into Match(

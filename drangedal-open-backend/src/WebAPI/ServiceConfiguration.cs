@@ -48,6 +48,7 @@ public static class ServiceConfiguration
         //Services
         service.AddScoped<ITournamentService, TournamentService>();
         service.AddScoped<ITournamentRepository, TournamentRepository>();
+        service.AddScoped<ITournamentDA, TournamentDA>();
         service.AddScoped<IUserService, UserService>();
         service.AddScoped<IUserRepository, UserRepository>();
         service.AddScoped<IUserDA, UserDA>();
@@ -60,6 +61,7 @@ public static class ServiceConfiguration
         service.AddScoped<IPlayerService, PlayerService>();
         service.AddScoped<IPlayerDA, PlayerDA>();
         service.AddScoped<IPlayerRepository, PlayerRepository>();
+        
         return service;
     }
 }
