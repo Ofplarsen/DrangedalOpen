@@ -19,4 +19,12 @@ public static class TournamentSql
                              " values ('{0}','{1}')",
             tournamentGuid, matchGuid);
     }
+
+    public static string GetMatchesFromTournament(Guid tournamentId)
+    {
+        return String.Format("select * from match, matchrules, matchtype, tournamentmatch where " +
+        "match.matchtypeid = matchrules.matchtypeid and match.matchtypeid = matchtype.matchtypeid and match.matchguid " +
+            "= tournamentmatch.matchguid " +
+            "and tournamentmatch.tournamentguid = '{0}'", tournamentId);
+    }
 }

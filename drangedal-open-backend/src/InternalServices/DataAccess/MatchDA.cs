@@ -4,6 +4,7 @@ using Common.Models.Tournament;
 using InternalServices.DataAccess.Interfaces;
 using InternalServices.DataAccess.SqlQuery;
 using Npgsql;
+using MatchType = Common.Models.Tournament.MatchType;
 
 namespace InternalServices.DataAccess;
 
@@ -32,5 +33,42 @@ public class MatchDA : IMatchDA
 
         cmd.ExecuteNonQuery();
         return match;
+    }
+
+    public List<MatchDTO> GetMatches(Guid tournamentId)
+    {   
+        var con = _connection.Connect();
+        var matches = new List<MatchDTO>();
+        using (con)
+        {
+
+            var cmd = new NpgsqlCommand(TournamentSql.GetMatchesFromTournament(tournamentId), con);
+            using (cmd)
+            {
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        matches.Add(new MatchDTO()
+                        {
+                            MatchGuid = (Guid)reader["matchguid"],
+                            HomePlayer = reader["playerhome"] != DBNull.Value ? (string)reader["playerhome"] : null,
+                            AwayPlayer = reader["playeraway"] != DBNull.Value ? (string)reader["playeraway"] : null,
+                            HomeScore = (int)reader["scorehome"],
+                            AwayScore =  (int)reader["scoreaway"],
+                            MatchRules = new MatchRules()
+                            {
+                                MatchType = (MatchType) ((int)reader["matchtypeid"]),
+                                ScoreToWin = (int)reader["scoretowin"]
+                            },
+                            NextMatch = reader["nextmatch"] != DBNull.Value ? (Guid)reader["nextmatch"] : Guid.Empty,
+                        });
+                        
+                    }
+                }
+            }
+        }
+
+        return matches;
     }
 }

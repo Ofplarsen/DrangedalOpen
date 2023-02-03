@@ -7,4 +7,6 @@ public interface ITournamentRepository
 {
     public bool CreateTournament(Tournament tournament);
     public bool MapTournamentMatch(Tournament tournament, MatchDTO match);
+
+    public List<MatchDTO> GetMatches(Guid tournamentGuid);
 }

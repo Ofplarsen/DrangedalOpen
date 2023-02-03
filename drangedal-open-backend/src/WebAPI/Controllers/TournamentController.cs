@@ -37,6 +37,12 @@ public class TournamentController : ControllerBase
         return Ok(new Tournament() {Name = "Name", TournamentGuid = Guid.NewGuid()});
     }
     
+    [HttpGet("matches")]
+    public ActionResult<List<MatchDTO>> GetMatches([FromQuery] Guid id)
+    {
+        return _tournamentService.GetMatches(id);
+    }
+    
     [HttpPost()]
     public ActionResult<Tournament> GenerateTournament([FromBody] TournamentPlayersDTO tournamentPlayersDto)
     {

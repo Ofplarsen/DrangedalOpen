@@ -7,4 +7,6 @@ public interface IMatchDA
 {
     public Match UpdateMatch(Match match);
     public MatchDTO CreateMatch(MatchDTO match);
+
+    public List<MatchDTO> GetMatches(Guid tournamentGuid);
 }

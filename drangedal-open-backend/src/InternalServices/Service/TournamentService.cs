@@ -19,6 +19,10 @@ public class TournamentService : ITournamentService
         _playerRepository = playerRepository;
     }
 
+    public List<MatchDTO> GetMatches(Guid tournamentGuid)
+    {
+        return _tournamentRepository.GetMatches(tournamentGuid);
+    }
 
     public Tournament GenerateTournament(TournamentPlayersDTO tournamentPlayersDto)
     {

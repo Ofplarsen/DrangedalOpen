@@ -27,4 +27,9 @@ public class TournamentRepository : ITournamentRepository
     {
         return _tournamentDa.MapTournamentMatch(tournament.TournamentGuid, match.MatchGuid);
     }
+
+    public List<MatchDTO> GetMatches(Guid tournamentGuid)
+    {
+        return _matchDa.GetMatches(tournamentGuid);
+    }
 }
