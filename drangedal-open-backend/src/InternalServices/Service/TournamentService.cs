@@ -68,6 +68,7 @@ public class TournamentService : ITournamentService
             
                 return new MatchDTO()
                 {
+                    MatchGuid = m.MatchGuid,
                     MatchRules = m.MatchRules,
                     NextMatch = nextMatch,
                     AwayPlayer = away,

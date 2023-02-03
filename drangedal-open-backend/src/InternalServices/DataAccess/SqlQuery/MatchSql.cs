@@ -7,16 +7,38 @@ public static class MatchSql
 {
     public static string CreateMatch(MatchDTO match)
     {
-        var next = match.NextMatch != Guid.Empty;
-        Console.Out.WriteLine(next);
-        if(next)
+        if (match.AwayPlayer == null && match.HomePlayer == null)
+        {
+            if(match.NextMatch == Guid.Empty)
+                return String.Format("Insert into match (matchguid, scorehome, scoreaway, matchtypeid)" + 
+                                     " values ('{0}',0,0, {1})",
+                    match.MatchGuid,  (int)match.MatchRules.MatchType);
+            
+            return String.Format("Insert into match (matchguid,  scorehome, scoreaway, matchtypeid, nextmatch)" + 
+                                 " values ('{0}',0,0, {1}, '{2}')",
+                match.MatchGuid,  (int)match.MatchRules.MatchType,  match.NextMatch);
+        }
+        
+
+        if (match.AwayPlayer == null)
+        {
+            if(match.NextMatch == Guid.Empty)
+                return String.Format("Insert into match (matchguid, playerhome, scorehome, scoreaway, matchtypeid)" + 
+                                     " values ('{0}', '{1}',0,0, {2})",
+                    match.MatchGuid, match.HomePlayer, (int)match.MatchRules.MatchType);
+            return String.Format("Insert into match (matchguid, playerhome, scorehome, scoreaway, matchtypeid, nextmatch)" + 
+                                 " values ('{0}', '{1}',0,0, {2}, '{3}')",
+                match.MatchGuid, match.HomePlayer, (int)match.MatchRules.MatchType,  match.NextMatch);
+        }
+        
+        if(match.NextMatch == Guid.Empty)
             return String.Format("Insert into match (matchguid, playerhome, playeraway, scorehome, scoreaway, matchtypeid, nextmatch)" + 
-            " values ('{0}','{1}','{2}',0,0, {3}, '{4}')",
-            match.MatchGuid, match.HomePlayer, match.AwayPlayer, (int)match.MatchRules.MatchType,  match.NextMatch );
-        else
-            return String.Format("Insert into match (matchguid, playerhome, playeraway, scorehome, scoreaway, matchtypeid, nextmatch)" + 
-                                 " values ('{0}','{1}','{2}',0,0, {3})",
-                match.MatchGuid, match.HomePlayer, match.AwayPlayer, (int)match.MatchRules.MatchType);
+                                 " values ('{0}','{1}','{2}',0,0, {3}, '{4}')",
+                match.MatchGuid, match.HomePlayer, match.AwayPlayer, (int)match.MatchRules.MatchType,  match.NextMatch);
+
+        return String.Format("Insert into match (matchguid, playerhome, playeraway, scorehome, scoreaway, matchtypeid, nextmatch)" + 
+                             " values ('{0}','{1}','{2}',0,0, {3}, '{4}')",
+                match.MatchGuid, match.HomePlayer, match.AwayPlayer, (int)match.MatchRules.MatchType, match.NextMatch);
     }
     
     

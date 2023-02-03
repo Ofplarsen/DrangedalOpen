@@ -42,6 +42,7 @@ public class BracketGenerator
         }
         matches.AddRange(GenerateNextBracket(matches));
         SetMatchType(matches);
+        RemoveRedundantMatches(matches, size);
         return matches;
     }
 
@@ -83,6 +84,17 @@ public class BracketGenerator
                     break;
             }
             matchNumb++;
+        }
+    }
+
+    private static void RemoveRedundantMatches(List<Match> matches, int size)
+    {
+        for (int i = (size/2)-1; i >= 0; i--)
+        {
+            if (matches[i].AwayPlayer == null && matches[i].HomePlayer == null)
+            {
+                matches.Remove(matches[i]);
+            }
         }
     }
 
