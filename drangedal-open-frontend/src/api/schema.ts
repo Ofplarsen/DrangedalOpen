@@ -28,6 +28,11 @@ export interface Player {
 	ranking: Ranking
 }
 
+export interface PlayerDTO {
+	username: string
+	ranking: Ranking
+}
+
 export interface Ranking{
 	rating: number
 	gamesWon: number

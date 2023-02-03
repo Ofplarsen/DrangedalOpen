@@ -1,11 +1,11 @@
-import {Player} from "../schema";
+import { Player, PlayerDTO } from "../schema";
 
 export type PostTournament = {
     name: string,
-    players: Player[]
+    players: string[]
 }
 
 export type ChosenPlayer = {
-    player: Player,
+    player: PlayerDTO,
     chosen: boolean
 }
