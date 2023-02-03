@@ -5,6 +5,7 @@ namespace InternalServices.Repository.Interfaces;
 
 public interface IMatchRepository
 {
-    public Match UpdateMatch(Match match);
+    public MatchDTO UpdateMatch(MatchDTO match);
     public MatchDTO CreateMatch(MatchDTO match);
+    public MatchDTO GetMatch(Guid matchId);
 }

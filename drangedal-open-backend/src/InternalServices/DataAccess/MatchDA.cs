@@ -1,4 +1,6 @@
 using Common.Database;
+using Common.Exceptions;
+using Common.Extentions.ReadDb;
 using Common.Models.DTOs;
 using Common.Models.Tournament;
 using InternalServices.DataAccess.Interfaces;
@@ -17,7 +19,7 @@ public class MatchDA : IMatchDA
         _connection = connection;
     }
     
-    public Match UpdateMatch(Match match)
+    public MatchDTO UpdateMatch(MatchDTO match)
     {
         using var con = _connection.Connect();
         using var cmd = new NpgsqlCommand(MatchSql.UpdateMatch(match), con);
@@ -49,20 +51,7 @@ public class MatchDA : IMatchDA
                 {
                     while (reader.Read())
                     {
-                        matches.Add(new MatchDTO()
-                        {
-                            MatchGuid = (Guid)reader["matchguid"],
-                            HomePlayer = reader["playerhome"] != DBNull.Value ? (string)reader["playerhome"] : null,
-                            AwayPlayer = reader["playeraway"] != DBNull.Value ? (string)reader["playeraway"] : null,
-                            HomeScore = (int)reader["scorehome"],
-                            AwayScore =  (int)reader["scoreaway"],
-                            MatchRules = new MatchRules()
-                            {
-                                MatchType = (MatchType) ((int)reader["matchtypeid"]),
-                                ScoreToWin = (int)reader["scoretowin"]
-                            },
-                            NextMatch = reader["nextmatch"] != DBNull.Value ? (Guid)reader["nextmatch"] : Guid.Empty,
-                        });
+                        matches.Add(ReadDbObjects.ReadMatchDTO(reader));
                         
                     }
                 }
@@ -70,5 +59,26 @@ public class MatchDA : IMatchDA
         }
 
         return matches;
+    }
+
+    public MatchDTO GetMatch(Guid matchId)
+    {
+        using var con = _connection.Connect();
+        try
+        {
+            using var cmd = new NpgsqlCommand(MatchSql.GetMatch(matchId), con);
+
+            using NpgsqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                return ReadDbObjects.ReadMatchDTO(rdr);
+            }
+        }
+        catch (Exception e)
+        {
+            throw new NotFoundException("Didn't find match with matching Id");
+        }
+
+        return null;
     }
 }

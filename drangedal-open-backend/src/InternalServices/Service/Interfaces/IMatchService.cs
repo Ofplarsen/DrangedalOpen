@@ -6,14 +6,15 @@ namespace InternalServices.Service.Interfaces;
 public interface IMatchService
 {
     public MatchDTO CreateMatch(MatchDTO match);
-    public Match GetMatch(Guid id);
+    public MatchDTO GetMatch(Guid matchId);
 
     public List<Match> GetMatches(Guid tournamentId);
 
     public List<Match> GetMatches();
 
-    public Match UpdateMatch(Match match, Guid id);
+    public MatchDTO UpdateMatch(MatchDTO match, Guid id);
 
     public void DeleteMatch(Guid id);
+    
     
 }

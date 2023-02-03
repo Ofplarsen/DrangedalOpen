@@ -1,5 +1,6 @@
 using Common.Exceptions;
 using Common.Models;
+using Common.Models.DTOs;
 using Common.Models.Login;
 using Common.Models.Tournament;
 using InternalServices.Service.Interfaces;
@@ -36,12 +37,25 @@ public class PlayerController : ControllerBase
         }
     }
     
-    [HttpGet("all")]
+    [HttpGet("players/all")]
     public ActionResult<List<Player>> GetPlayers()
     {
         try
         {
             return _playerService.GetPlayers();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+    
+    [HttpGet("players")]
+    public ActionResult<List<PlayerDTO>> GetPlayersSimple()
+    {
+        try
+        {
+            return _playerService.GetPlayersSimple();
         }
         catch (NotFoundException e)
         {

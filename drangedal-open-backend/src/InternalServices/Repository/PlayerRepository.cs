@@ -1,3 +1,4 @@
+using Common.Models.DTOs;
 using Common.Models.Tournament;
 using InternalServices.DataAccess.Interfaces;
 using InternalServices.Repository.Interfaces;
@@ -23,5 +24,10 @@ public class PlayerRepository : IPlayerRepository
     public List<Player> GetPlayers()
     {
         return _playerDa.GetPlayers();
+    }
+
+    public List<PlayerDTO> GetPlayersSimple()
+    {
+        return _playerDa.GetPlayersSimple();
     }
 }

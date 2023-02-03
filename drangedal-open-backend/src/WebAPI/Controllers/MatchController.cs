@@ -45,7 +45,7 @@ public class MatchController : ControllerBase
     }
     
     [HttpPut()]
-    public ActionResult<Match> UpdateMatch([FromQuery] Guid id, [FromBody] Match match)
+    public ActionResult<MatchDTO> UpdateMatch([FromQuery] Guid id, [FromBody] MatchDTO match)
     {
         try
         {

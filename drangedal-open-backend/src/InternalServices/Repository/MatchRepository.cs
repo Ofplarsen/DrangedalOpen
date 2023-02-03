@@ -14,7 +14,7 @@ public class MatchRepository : IMatchRepository
         _matchDa = matchDa;
     }
 
-    public Match UpdateMatch(Match match)
+    public MatchDTO UpdateMatch(MatchDTO match)
     {
         return _matchDa.UpdateMatch(match);
     }
@@ -22,5 +22,10 @@ public class MatchRepository : IMatchRepository
     public MatchDTO CreateMatch(MatchDTO match)
     {
         return _matchDa.CreateMatch(match);
+    }
+
+    public MatchDTO GetMatch(Guid matchId)
+    {
+        return _matchDa.GetMatch(matchId);
     }
 }

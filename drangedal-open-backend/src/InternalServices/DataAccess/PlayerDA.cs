@@ -1,6 +1,7 @@
 using Common.Database;
 using Common.Exceptions;
 using Common.Extentions.ReadDb;
+using Common.Models.DTOs;
 using Common.Models.Tournament;
 using InternalServices.DataAccess.Interfaces;
 using InternalServices.DataAccess.SqlQuery;
@@ -52,6 +53,29 @@ public class PlayerDA : IPlayerDA
             while (rdr.Read())
             {
                 players.Add(ReadDbObjects.ReadPlayer(rdr));
+            }
+
+            return players;
+        }
+        catch (Exception e)
+        {
+            throw new NotFoundException("Didn't find player with matching username");
+        }
+
+        return null;
+    }
+    
+    public List<PlayerDTO> GetPlayersSimple()
+    {
+        using var con = _connection.Connect();
+        try
+        {
+            using var cmd = new NpgsqlCommand(PlayerSql.GetPlayersSimple(), con);
+            List<PlayerDTO> players = new List<PlayerDTO>();
+            using NpgsqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                players.Add(ReadDbObjects.ReadPlayerDTO(rdr));
             }
 
             return players;

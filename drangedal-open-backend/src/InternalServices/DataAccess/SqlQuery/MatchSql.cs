@@ -43,10 +43,25 @@ public static class MatchSql
     
     
     
-    public static string UpdateMatch(Match match)
+    public static string UpdateMatch(MatchDTO match)
     {
-        return String.Format("Update match set scorehome = {0}, scoreaway= {1} where matchguid = '{2}'",
-            match.HomeScore, match.AwayScore, match.MatchGuid.ToString());
+        if (match.HomePlayer == null && match.AwayPlayer == null)
+            return "";
+        if(match.HomePlayer == null)
+            return String.Format("Update match set scorehome = {0}, scoreaway= {1}, playeraway = '{2}' where matchguid = '{3}'",
+                match.HomeScore, match.AwayScore,match.AwayPlayer, match.MatchGuid);
+        if(match.AwayPlayer == null)
+            return String.Format("Update match set scorehome = {0}, scoreaway= {1}, playerhome = '{2}' where matchguid = '{3}'",
+                match.HomeScore, match.AwayScore,match.HomePlayer, match.MatchGuid);
+        return String.Format("Update match set scorehome = {0}, scoreaway= {1}, playerhome = '{2}', playeraway = '{3}' where matchguid = '{4}'",
+            match.HomeScore, match.AwayScore,match.HomePlayer,match.AwayPlayer, match.MatchGuid);
+    }
+    
+    public static string GetMatch(Guid matchId)
+    {
+        return String.Format("select * from match, matchrules, matchtype, tournamentmatch where " +
+                             "match.matchtypeid = matchrules.matchtypeid and match.matchtypeid = matchtype.matchtypeid and match.matchguid " +
+                             "and match.matchguid = '{0}'", matchId);
     }
     
 }
