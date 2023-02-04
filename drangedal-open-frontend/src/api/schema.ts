@@ -60,6 +60,7 @@ export interface Tournament {
 }
 
 
-
-
-
+export interface Alternative {
+	id: string,
+	alt: string
+}

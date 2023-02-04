@@ -56,7 +56,7 @@ initPlayers()
 </script>
 
 <template>
-  <base-input v-model="tournament.name" label="Tournament name" placeholder="Tournament1"></base-input>
+  <base-input v-if="tournament != null" v-model="tournament.name" label="Tournament name" placeholder="Tournament1"></base-input>
 
   <div v-for="player in players_picked" class="p-2.5">
     <PlayerDTOCard :modelValue="player" :showRating="true">

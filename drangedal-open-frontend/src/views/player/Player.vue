@@ -30,7 +30,7 @@ await initPlayer()
 
 <template>
   <div class="grid grid-cols-3">
-    <Card>
+    <Card v-if=" player != null  && player.ranking != null">
       {{ player.ranking.rating }}
       {{ player.ranking.gamesWon - player.ranking.gamesLost }}
     </Card>

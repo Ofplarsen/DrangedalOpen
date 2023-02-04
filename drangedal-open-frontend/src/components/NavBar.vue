@@ -45,7 +45,7 @@ import {
 			</router-link>
 			<router-link
 				class="grid place-items-center"
-				:to="store.getters.loggedIn ? '/user/' + store.state.user?.userId : '/login'"
+				:to="store.getters.loggedIn ? '/user/' + store.state.user : '/login'"
 			>
 				<img
 					v-if="store.state.user"
