@@ -60,6 +60,54 @@ public class MatchDA : IMatchDA
 
         return matches;
     }
+    
+    public List<MatchDTO> GetMatchesPlayer(string username)
+    {   
+        var con = _connection.Connect();
+        var matches = new List<MatchDTO>();
+        using (con)
+        {
+
+            var cmd = new NpgsqlCommand(MatchSql.GetMatchesPlayer(username), con);
+            using (cmd)
+            {
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        matches.Add(ReadDbObjects.ReadMatchDTO(reader));
+                        
+                    }
+                }
+            }
+        }
+
+        return matches;
+    }
+    
+    public List<MatchDTO> GetMatchesPlayerUpcoming(string username)
+    {   
+        var con = _connection.Connect();
+        var matches = new List<MatchDTO>();
+        using (con)
+        {
+
+            var cmd = new NpgsqlCommand(MatchSql.GetMatchesPlayerUpcoming(username), con);
+            using (cmd)
+            {
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        matches.Add(ReadDbObjects.ReadMatchDTO(reader));
+                        
+                    }
+                }
+            }
+        }
+
+        return matches;
+    }
 
     public MatchDTO GetMatch(Guid matchId)
     {

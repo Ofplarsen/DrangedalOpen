@@ -30,18 +30,22 @@ public class MatchController : ControllerBase
     }
     //[Authorize(Roles = "Admin")]
     [HttpGet()]
-    public ActionResult<Match> GetMatch([FromQuery] Guid id)
+    public ActionResult<MatchDTO> GetMatch([FromQuery] Guid id)
     {
-        throw new NotImplementedException();
+        return _matchService.GetMatch(id);
+    }
+    
+    [HttpGet("player")]
+    public ActionResult<List<MatchDTO>> GetMatchesPlayer([FromQuery] string username, [FromQuery] bool all)
+    {
+        return _matchService.GetMatchesPlayer(username, all);
     }
     
     [HttpPost()]
     public ActionResult<MatchDTO> GetMatch([FromBody] MatchDTO matchDto)
     {
-        
-            return _matchService.CreateMatch(matchDto);
-        
-        
+        return _matchService.CreateMatch(matchDto);
+
     }
     
     [HttpPut()]

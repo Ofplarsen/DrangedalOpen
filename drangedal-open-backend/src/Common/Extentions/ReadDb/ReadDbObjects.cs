@@ -72,6 +72,7 @@ public static class ReadDbObjects
                 ScoreToWin = (int) reader["scoretowin"]
             },
             NextMatch = reader["nextmatch"] != DBNull.Value ? (Guid) reader["nextmatch"] : Guid.Empty,
+            Winner = reader["winner"] != DBNull.Value ? (string) reader["winner"] : null
         };
     }
 }

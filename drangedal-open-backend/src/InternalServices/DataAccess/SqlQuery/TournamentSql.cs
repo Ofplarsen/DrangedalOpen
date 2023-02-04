@@ -22,9 +22,9 @@ public static class TournamentSql
 
     public static string GetMatchesFromTournament(Guid tournamentId)
     {
-        return String.Format("select * from match, matchrules, matchtype, tournamentmatch where " +
+        return String.Format("select * from match,matchinfo, matchrules, matchtype, tournamentmatch where " +
         "match.matchtypeid = matchrules.matchtypeid and match.matchtypeid = matchtype.matchtypeid and match.matchguid " +
-            "= tournamentmatch.matchguid " +
+            "= tournamentmatch.matchguid and matchinfo.matchguid = match.matchguid " +
             "and tournamentmatch.tournamentguid = '{0}'", tournamentId);
     }
 }

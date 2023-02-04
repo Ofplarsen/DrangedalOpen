@@ -8,4 +8,6 @@ public interface IMatchRepository
     public MatchDTO UpdateMatch(MatchDTO match);
     public MatchDTO CreateMatch(MatchDTO match);
     public MatchDTO GetMatch(Guid matchId);
+    public List<MatchDTO> GetMatchesPlayer(string username);
+    public List<MatchDTO> GetMatchesPlayerUpcoming(string username);
 }

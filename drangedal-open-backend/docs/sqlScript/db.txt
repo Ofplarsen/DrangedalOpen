@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS Tournament CASCADE;
 DROP TABLE IF EXISTS TournamentMatch CASCADE;
 DROP TABLE IF EXISTS MatchType CASCADE;
 DROP TABLE IF EXISTS MatchRules CASCADE;
-
+DROP TABLE IF EXISTS MatchInfo CASCADE;
 CREATE TABLE "user" (
                         username varchar(50) primary key,
                         firstName varchar(255),
@@ -39,13 +39,19 @@ CREATE TABLE MatchRules (
 
 CREATE TABLE Match (
                        matchGuid uuid PRIMARY KEY,
-                       playerHome varchar(50) REFERENCES Player(username),
-                       playerAway varchar(50) REFERENCES Player(username),
-                       scoreHome int default 0,
-                       scoreAway int default 0,
                        matchTypeId int REFERENCES MatchType(matchTypeId),
                        nextMatch uuid REFERENCES Match(matchGuid)
 );
+
+CREATE TABLE MatchInfo (
+                           matchGuid uuid REFERENCES Match(matchGuid),
+                           playerHome varchar(50) REFERENCES Player(username),
+                           playerAway varchar(50) REFERENCES Player(username),
+                           scoreHome int default 0,
+                           scoreAway int default 0,
+                           winner varchar(50) REFERENCES Player(username)
+);
+
 
 CREATE TABLE Tournament (
                             tournamentGuid uuid PRIMARY KEY,
@@ -63,7 +69,7 @@ insert into ranking(username) VALUES ('olavfpl');
 
 INSERT INTO "user"(username, firstName, lastName, phoneNumber, email, password) values ('amundfpl', 'Amund', 'Larsen', 95444369,'xray@gmail.com', '123');
 INSERT INTO player(username) values ('amundfpl');
-insert into ranking(username) VALUES ('amundfpl'); 
+insert into ranking(username) VALUES ('amundfpl');
 
 insert into MatchType(matchTypeId, type) VALUES (0, 'final');
 insert into MatchType(matchTypeId, type) VALUES (1, 'semi');
@@ -76,4 +82,3 @@ insert into MatchRules(matchTypeId, scoreToWin) VALUES (1, 11);
 insert into MatchRules(matchTypeId, scoreToWin) VALUES (2, 9);
 insert into MatchRules(matchTypeId, scoreToWin) VALUES (3, 7);
 insert into MatchRules(matchTypeId, scoreToWin) VALUES (9, 11);
-insert into Match(

@@ -28,4 +28,14 @@ public class MatchRepository : IMatchRepository
     {
         return _matchDa.GetMatch(matchId);
     }
+
+    public List<MatchDTO> GetMatchesPlayer(string username)
+    {
+        return _matchDa.GetMatchesPlayer(username);
+    }
+
+    public List<MatchDTO> GetMatchesPlayerUpcoming(string username)
+    {
+        return _matchDa.GetMatchesPlayerUpcoming(username);
+    }
 }

@@ -16,5 +16,6 @@ public interface IMatchService
 
     public void DeleteMatch(Guid id);
     
+    public List<MatchDTO> GetMatchesPlayer(string username, bool all);
     
 }

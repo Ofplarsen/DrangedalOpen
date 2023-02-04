@@ -55,6 +55,11 @@ public class MatchService : IMatchService
         throw new NotImplementedException();
     }
 
+    public List<MatchDTO> GetMatchesPlayer(string username, bool all)
+    {
+        return all ? _matchRepository.GetMatchesPlayer(username) : _matchRepository.GetMatchesPlayerUpcoming(username);
+    }
+
     private void MatchResult(MatchDTO match)
     {
         

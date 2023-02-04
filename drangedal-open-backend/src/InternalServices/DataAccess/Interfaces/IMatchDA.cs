@@ -10,4 +10,8 @@ public interface IMatchDA
 
     public List<MatchDTO> GetMatches(Guid tournamentGuid);
     public MatchDTO GetMatch(Guid matchId);
+
+    public List<MatchDTO> GetMatchesPlayer(string username);
+
+    public List<MatchDTO> GetMatchesPlayerUpcoming(string username);
 }

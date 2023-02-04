@@ -11,4 +11,6 @@ public class MatchDTO
     public int AwayScore { get; set; }
     public Guid NextMatch { get; set; } = Guid.Empty;
     public MatchRules MatchRules { get; set; }
+    
+    public string Winner { get; set; }
 }
