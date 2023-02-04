@@ -24,7 +24,7 @@ import { UserIcon } from '@heroicons/vue/solid'
 				<router-link v-if="store.getters.loggedIn" to="/overview">
 					Your Matches
 				</router-link>
-				<router-link v-if="store.getters.loggedIn" to="/leaderboard">
+				<router-link to="/leaderboard">
 					Leaderboard
 				</router-link>
 				<router-link v-if="store.getters.loggedIn" to="/tournament/new">

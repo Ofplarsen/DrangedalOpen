@@ -1,48 +1,25 @@
 <script setup lang="ts">
-import {Match, MatchType, User} from "../api/schema";
+import { Match, MatchDTO, MatchType, User } from "../api/schema";
 import MatchSetup from "../components/MatchSetup.vue";
+import {getMatches} from "../requests/api_requests";
+import { ref } from "vue";
+import { useStore } from "../store";
 
-const users: User[] = [
-]
 
-async function getUsers(){
+const store = useStore()
+const matches = ref<MatchDTO[]>()
 
+async function initMatches(){
+  if(store.state.user == undefined)
+    return
+  await getMatches(store.state.user.username, false).then(data => {
+    console.log(data.data)
+    matches.value = data.data
+  }).catch(err => {
+    console.log(err.message)
+  })
 }
-
-const matches: Match[] = [
-    /*
-  {
-    matchId: 1,
-    date: "date",
-    home: [users[0]],
-    away: [users[1]],
-    scoreHome: 0,
-    scoreAway: 0,
-    type: MatchType.SemiFinal
-  },
-  {
-    matchId: 0,
-    date: "date",
-    home: [users[0]],
-    away: [users[0]],
-    scoreHome: 0,
-    scoreAway: 0,
-    type: MatchType.SemiFinal
-  },
-  {
-    matchId: 2,
-    date: "date",
-    home: [users[1]],
-    away: [users[0]],
-    scoreHome: 0,
-    scoreAway: 0,
-    type: MatchType.Final
-  }
-
-     */
-]
-
-
+initMatches()
 </script>
 
 <template>
@@ -55,7 +32,7 @@ const matches: Match[] = [
     </div>
     <div>
       <h2>Upcoming matches</h2>
-      <MatchSetup :matches="matches"></MatchSetup>
+      <MatchSetup v-if="matches" :matches="matches"></MatchSetup>
     </div>
   </div>
 </template>

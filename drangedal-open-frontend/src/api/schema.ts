@@ -53,6 +53,16 @@ export interface Match {
 	matchRules: MatchRules
 }
 
+export interface MatchDTO {
+	matchGuid: string
+	homePlayer: string
+	awayPlayer: string
+	homeScore: number
+	awayScore: number
+	winner: string
+	matchRules: MatchRules
+}
+
 export interface Tournament {
 	tournamentId: string
 	matches: Match[]

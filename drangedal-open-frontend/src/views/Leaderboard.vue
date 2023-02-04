@@ -16,7 +16,10 @@ async function initLeaderboard(){
   try{
     //TODO Make own API point for leaderboard data, since all players too much data!!!
     await getPlayersDTO().then(data => {
-      leaderboard.value = data.data
+      leaderboard.value = data.data.sort(function(a: PlayerDTO, b: PlayerDTO) {
+        return a.ranking.rating - b.ranking.rating;
+      })
+
     })
   }catch (err){
     console.log(err)

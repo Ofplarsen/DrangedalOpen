@@ -20,7 +20,11 @@ export async function getPlayersDTO(){
 }
 
 export async function getPlayer(username: string){
-  return await axios.get('/player?username=' + username)
+  return await axios.get('/player?username=' + username )
+}
+
+export async function getMatches(username: string, all: boolean){
+  return await axios.get('/match/player?username=' + username+ '&all=' + all)
 }
 
 export async function postTournament(tournament: PostTournament){
