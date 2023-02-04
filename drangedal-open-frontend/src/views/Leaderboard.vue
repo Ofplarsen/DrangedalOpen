@@ -2,8 +2,15 @@
 import { ref } from "vue";
 import { Player, PlayerDTO } from "../api/schema";
 import { getPlayers, getPlayersDTO } from "../requests/api_requests";
+import Router from "../router";
 
+const router = ref(Router)
 const leaderboard = ref<PlayerDTO[]>()
+
+function redirect(to: string){
+  console.log(to)
+  router.value.push(to)
+}
 
 async function initLeaderboard(){
   try{
@@ -31,7 +38,7 @@ initLeaderboard()
         </tr>
       </thead>
       <tbody>
-        <tr v-for="player in leaderboard" :key="player.username" class="hover:bg-gray-200">
+        <tr v-for="player in leaderboard" :key="player.username" class="hover:bg-gray-200" @click="redirect('/player/' + player.username)">
           <td class="px-4 py-2">{{ player.username }}</td>
           <td class="px-4 py-2">{{ player.ranking.rating }}</td>
           <td class="px-4 py-2">{{ player.ranking.gamesWon }}</td>

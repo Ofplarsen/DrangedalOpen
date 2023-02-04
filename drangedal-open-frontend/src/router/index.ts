@@ -37,10 +37,11 @@ const routes = [
     },
   },
   {
-    path: '/player',
+    path: '/player/:id',
     component: Player,
     meta: {
       requiresAuth: false,
+
     },
   },
   {
