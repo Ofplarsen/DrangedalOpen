@@ -14,4 +14,5 @@ public interface IMatchDA
     public List<MatchDTO> GetMatchesPlayer(string username);
 
     public List<MatchDTO> GetMatchesPlayerUpcoming(string username);
+    public MatchDTO SetMatch(MatchDTO match, bool homeWin);
 }

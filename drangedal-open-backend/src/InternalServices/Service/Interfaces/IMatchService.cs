@@ -12,7 +12,7 @@ public interface IMatchService
 
     public List<Match> GetMatches();
 
-    public MatchDTO UpdateMatch(MatchDTO match, Guid id);
+    public MatchDTO UpdateMatch(MatchDTO match);
 
     public void DeleteMatch(Guid id);
     

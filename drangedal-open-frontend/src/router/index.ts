@@ -7,6 +7,8 @@ import UserRegister from '../views/UserRegister.vue'
 import Player from '../views/player/Player.vue'
 import CreateTournament from '../views/tournament/CreateTournament.vue'
 import Leaderboard from '../views/Leaderboard.vue'
+import MatchView from '../views/MatchView.vue'
+import TournamentView from '../views/tournament/TournamentView.vue'
 const routes = [
   {
     path: '/',
@@ -32,6 +34,20 @@ const routes = [
   {
     path: '/tournament/new',
     component: CreateTournament,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: '/tournament/:id',
+    component: TournamentView,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: '/match/:id',
+    component: MatchView,
     meta: {
       requiresAuth: false,
     },

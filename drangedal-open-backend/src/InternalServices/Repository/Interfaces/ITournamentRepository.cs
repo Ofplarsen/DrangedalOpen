@@ -9,4 +9,7 @@ public interface ITournamentRepository
     public bool MapTournamentMatch(Tournament tournament, MatchDTO match);
 
     public List<MatchDTO> GetMatches(Guid tournamentGuid);
+    public TournamentDTO GetTournament(Guid tournamentGuid);
+    public List<TournamentDTO> GetTournamentsOngoing();
+    public List<TournamentDTO> GetTournamentsArchived();
 }

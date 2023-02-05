@@ -32,4 +32,19 @@ public class TournamentRepository : ITournamentRepository
     {
         return _matchDa.GetMatches(tournamentGuid);
     }
+
+    public TournamentDTO GetTournament(Guid tournamentGuid)
+    {
+        return _tournamentDa.GetTournament(tournamentGuid);
+    }
+
+    public List<TournamentDTO> GetTournamentsOngoing()
+    {
+        return _tournamentDa.GetTournamentsOngoing();
+    }
+
+    public List<TournamentDTO> GetTournamentsArchived()
+    {
+        return _tournamentDa.GetTournamentsArchived();
+    }
 }

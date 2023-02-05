@@ -1,7 +1,8 @@
 export enum MatchType {
 	Final = 0,
-	SemiFinal = 1
-
+	Semi = 1,
+	Quarter = 2,
+	Default = 9
 }
 export interface MatchRules {
 	matchType: MatchType
@@ -64,8 +65,8 @@ export interface MatchDTO {
 }
 
 export interface Tournament {
-	tournamentId: string
-	matches: Match[]
+	tournamentGuid: string
+	matches: MatchDTO[]
 	name: string
 }
 

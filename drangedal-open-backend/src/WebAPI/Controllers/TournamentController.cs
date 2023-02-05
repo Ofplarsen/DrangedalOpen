@@ -15,7 +15,7 @@ namespace WebAPI.Controllers;
 
 [ApiController]
 //Used to make sure token is used
-[Authorize]
+//[Authorize]
 [Route("api/v1/[controller]")]
 public class TournamentController : ControllerBase
 {
@@ -32,9 +32,9 @@ public class TournamentController : ControllerBase
     
     //[Authorize(Roles = "Admin")]
     [HttpGet()]
-    public ActionResult<Tournament> GetTournament([FromQuery] Guid id)
+    public ActionResult<TournamentMatchesDTO> GetTournament([FromQuery] Guid id)
     {
-        return Ok(new Tournament() {Name = "Name", TournamentGuid = Guid.NewGuid()});
+        return Ok(_tournamentService.GetTournament(id));
     }
     
     [HttpGet("matches")]
@@ -49,11 +49,11 @@ public class TournamentController : ControllerBase
         return _tournamentService.GenerateTournament(tournamentPlayersDto);
     }
     
-    /*
-    [HttpGet()]
-    public ActionResult<List<Tournament>> GetTournaments()
+    
+    [HttpGet("all")]
+    public ActionResult<List<TournamentDTO>> GetTournaments([FromQuery] bool old)
     {
-        return Ok(new Tournament() {Name = "Name", TournamentGuid = Guid.NewGuid()});
+        return old ? _tournamentService.GetTournamentsArchived() : _tournamentService.GetTournamentsOngoing();
     }
-    */
+    
 }

@@ -39,10 +39,10 @@ public class MatchService : IMatchService
         throw new NotImplementedException();
     }
 
-    public MatchDTO UpdateMatch(MatchDTO match, Guid id)
+    public MatchDTO UpdateMatch(MatchDTO match)
     {
         //TODO Split these to, one to handle wins, and one to only update match
-        if (match.AwayScore >= match.MatchRules.ScoreToWin && match.HomeScore >= match.MatchRules.ScoreToWin)
+        if (match.AwayScore >= match.MatchRules.ScoreToWin || match.HomeScore >= match.MatchRules.ScoreToWin)
         {
             MatchResult(match);
         }
@@ -67,22 +67,23 @@ public class MatchService : IMatchService
             : _playerService.GetPlayer(match.AwayPlayer);
         var loser = match.HomeScore < match.MatchRules.ScoreToWin ?_playerService.GetPlayer(match.HomePlayer)
             : _playerService.GetPlayer(match.AwayPlayer);
-        
-        
+
+        _matchRepository.SetMatch(match, (winner.User.Username == match.HomePlayer));
         EloCalculator.EloRating(winner.Ranking, loser.Ranking);
         _ratingService.UpdateRatings(new(){Username = winner.User.Username, Ranking = winner.Ranking},
             new() {Ranking = loser.Ranking, Username = loser.User.Username});
 
         if (match.NextMatch != null)
         {
-            var nextMatch = _matchRepository.GetMatch(match.NextMatch);
+            
+            var nextMatch = _matchRepository.GetMatch((Guid)match.NextMatch);
             if (nextMatch.AwayPlayer != null && nextMatch.HomePlayer != null)
                 return;
             if (nextMatch.HomePlayer == null)
                 nextMatch.HomePlayer = winner.User.Username;
-            if(nextMatch.AwayPlayer == null)
+            else if(nextMatch.AwayPlayer == null)
                 nextMatch.AwayPlayer = winner.User.Username;
-
+            
             _matchRepository.UpdateMatch(nextMatch);
         }
             

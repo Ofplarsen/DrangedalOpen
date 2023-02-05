@@ -19,9 +19,32 @@ public class TournamentService : ITournamentService
         _playerRepository = playerRepository;
     }
 
+    public TournamentMatchesDTO GetTournament(Guid tournamentGuid)
+    {
+        var tournament = _tournamentRepository.GetTournament(tournamentGuid);
+        var matches = _tournamentRepository.GetMatches(tournamentGuid);
+
+        return new TournamentMatchesDTO()
+        {
+            Name = tournament.Name,
+            TournamentGuid = tournament.TournamentGuid,
+            Matches = matches
+        };
+    }
+
     public List<MatchDTO> GetMatches(Guid tournamentGuid)
     {
         return _tournamentRepository.GetMatches(tournamentGuid);
+    }
+
+    public List<TournamentDTO> GetTournamentsOngoing()
+    {
+        return _tournamentRepository.GetTournamentsOngoing();
+    }
+
+    public List<TournamentDTO> GetTournamentsArchived()
+    {
+        return _tournamentRepository.GetTournamentsArchived();
     }
 
     public Tournament GenerateTournament(TournamentPlayersDTO tournamentPlayersDto)

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {Match} from "../api/schema";
+import { Match, MatchDTO, MatchType } from "../api/schema";
 
 interface Props {
-  matches: Match[]
+  matches: MatchDTO[]
 }
 const { matches } = defineProps<Props>()
 
@@ -16,15 +16,17 @@ const { matches } = defineProps<Props>()
     <div>Home</div>
     <div>Away</div>
     <div>Type</div>
-    <div>Match status</div>
+    <div>Score to win</div>
+    <div>Winner</div>
   </div>
-  <router-link class="grid grid-cols-7 gap-2 border border-black" v-for="match in matches" :to='"match/" + match.matchGuid'>
-    <div>{{ match.homePlayer }}, {{ match.homePlayer }}</div>
-    <div>{{ match.awayPlayer }}, {{ match.awayPlayer }}</div>
+  <router-link class="grid grid-cols-7 gap-2 border border-black" v-for="match in matches" :to='"/match/" + match.matchGuid'>
+    <div>{{ (match.homePlayer === null ? "TBA" : match.homePlayer) }}</div>
+    <div>{{ (match.awayPlayer === null ? "TBA" : match.awayPlayer) }}</div>
     <div>{{ match.homeScore }}</div>
-    <div>{{ match.awayPlayer }}</div>
-    <div>{{ match.matchRules.matchType }}</div>
-    <div>Match status</div>
+    <div>{{ match.awayScore }}</div>
+    <div>{{ MatchType[match.matchRules.matchType] }}</div>
+    <div>{{ match.matchRules.scoreToWin }}</div>
+    <div>{{ match.winner }}</div>
   </router-link>
 
 </template>

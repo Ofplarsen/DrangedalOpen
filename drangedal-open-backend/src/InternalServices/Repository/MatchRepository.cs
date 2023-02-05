@@ -38,4 +38,9 @@ public class MatchRepository : IMatchRepository
     {
         return _matchDa.GetMatchesPlayerUpcoming(username);
     }
+
+    public MatchDTO SetMatch(MatchDTO match, bool homeWin)
+    {
+        return _matchDa.SetMatch(match, homeWin);
+    }
 }

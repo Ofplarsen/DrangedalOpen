@@ -27,4 +27,23 @@ public static class TournamentSql
             "= tournamentmatch.matchguid and matchinfo.matchguid = match.matchguid " +
             "and tournamentmatch.tournamentguid = '{0}'", tournamentId);
     }
+
+    public static string GetTournament(Guid tournamentId)
+    {
+        return String.Format("select * from tournament where tournamentguid = '{0}'", tournamentId);
+    }
+    
+    public static string GetTournamentsArchived()
+    {
+        return String.Format("select distinct tournament.tournamentguid, tournament.name from tournament,"+ 
+                " tournamentmatch, match, matchinfo where tournament.tournamentguid = tournamentmatch.tournamentguid" + 
+                " and tournamentmatch.matchguid = match.matchguid and match.matchguid = matchinfo.matchguid and matchinfo.winner is not null");
+    }
+    
+    public static string GetTournamentsCurrent()
+    {
+        return String.Format("select distinct tournament.tournamentguid, tournament.name from tournament,"+ 
+                             " tournamentmatch, match, matchinfo where tournament.tournamentguid = tournamentmatch.tournamentguid" + 
+                             " and tournamentmatch.matchguid = match.matchguid and match.matchguid = matchinfo.matchguid and matchinfo.winner is null");
+    }
 }

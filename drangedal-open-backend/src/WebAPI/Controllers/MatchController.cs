@@ -49,11 +49,11 @@ public class MatchController : ControllerBase
     }
     
     [HttpPut()]
-    public ActionResult<MatchDTO> UpdateMatch([FromQuery] Guid id, [FromBody] MatchDTO match)
+    public ActionResult<MatchDTO> UpdateMatch([FromBody] MatchDTO match)
     {
         try
         {
-            return _matchService.UpdateMatch(match, id);
+            return _matchService.UpdateMatch(match);
         }
         catch (Exception e)
         {

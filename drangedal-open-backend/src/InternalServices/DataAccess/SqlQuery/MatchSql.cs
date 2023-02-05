@@ -67,12 +67,23 @@ public static class MatchSql
         return String.Format("Update matchinfo set scorehome = {0}, scoreaway= {1}, playerhome = '{2}', playeraway = '{3}' where matchguid = '{4}'",
             match.HomeScore, match.AwayScore,match.HomePlayer,match.AwayPlayer, match.MatchGuid);
     }
+
+    public static string SetWinner(MatchDTO match, bool playerHome)
+    {
+        if (playerHome)
+            return String.Format(
+            "Update matchinfo set winner = '{0}' where matchguid = '{1}'",
+            match.HomePlayer, match.MatchGuid);
+        return String.Format(
+            "Update matchinfo set winner = '{0}' where matchguid = '{1}'",
+            match.AwayPlayer, match.MatchGuid);
+    }
     
     public static string GetMatch(Guid matchId)
     {
-        return String.Format("select * from match, matchrules, matchtype, tournamentmatch where " +
-                             "match.matchtypeid = matchrules.matchtypeid and match.matchtypeid = matchtype.matchtypeid and match.matchguid " +
-                             "and match.matchguid = '{0}'", matchId);
+        return String.Format("select distinct match.*, matchinfo.*, matchrules.*, matchtype.*  from match, matchrules, "+
+                             "matchinfo, matchtype, tournamentmatch where match.matchtypeid = matchrules.matchtypeid and "+
+                             "match.matchtypeid = matchtype.matchtypeid and matchinfo.matchguid = match.matchguid and match.matchguid = '{0}'", matchId);
     }
     
 }

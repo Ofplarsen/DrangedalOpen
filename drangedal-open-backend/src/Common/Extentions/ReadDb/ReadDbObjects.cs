@@ -56,6 +56,14 @@ public static class ReadDbObjects
         string? password = reader["password"] as string;
         return new() {Password = password, Username = username};
     }
+    
+    public static TournamentDTO ReadTournamentDTO(NpgsqlDataReader reader)
+    {
+        Guid guid = (Guid) reader["tournamentguid"];
+        string name = reader["name"] as string;
+        return new TournamentDTO(){TournamentGuid = guid, Name = name};
+    }
+    
 
     public static MatchDTO ReadMatchDTO(NpgsqlDataReader reader)
     {

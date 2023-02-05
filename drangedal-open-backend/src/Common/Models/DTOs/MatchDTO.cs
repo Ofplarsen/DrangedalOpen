@@ -9,8 +9,8 @@ public class MatchDTO
     public string AwayPlayer { get; set; }
     public int HomeScore { get; set; }
     public int AwayScore { get; set; }
-    public Guid NextMatch { get; set; } = Guid.Empty;
+    public Guid? NextMatch { get; set; } = Guid.Empty;
     public MatchRules MatchRules { get; set; }
     
-    public string Winner { get; set; }
+    public string? Winner { get; set; }
 }

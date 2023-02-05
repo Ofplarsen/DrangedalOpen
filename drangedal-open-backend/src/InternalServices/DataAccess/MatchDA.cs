@@ -27,7 +27,16 @@ public class MatchDA : IMatchDA
         cmd.ExecuteNonQuery();
         return match;
     }
+    
+    public MatchDTO SetMatch(MatchDTO match, bool homeWin)
+    {
+        using var con = _connection.Connect();
+        using var cmd = new NpgsqlCommand(MatchSql.SetWinner(match, homeWin), con);
 
+        cmd.ExecuteNonQuery();
+        return match;
+    }
+    
     public MatchDTO CreateMatch(MatchDTO match)
     {
         using var con = _connection.Connect();
