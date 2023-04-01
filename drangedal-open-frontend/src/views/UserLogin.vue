@@ -46,7 +46,7 @@ async function logIn() {
 	} catch (error: any) {
 		loginStatus.value = 'error'
     console.log(error.response)
-		await store.dispatch('error', error.response.data)
+		//await store.dispatch('error', error.response.data)
 	}
 }
 
