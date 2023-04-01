@@ -92,6 +92,12 @@ public class TournamentService : ITournamentService
             {
                 
             }
+
+            if ((home == null || away == null) && !(home == null && away == null))
+            {
+                tournament.Matches.Where(m => m.MatchGuid == nextMatch).First()
+                    .HomePlayer.User.Username = home == null ? away : home;
+            }
             
                 return new MatchDTO()
                 {

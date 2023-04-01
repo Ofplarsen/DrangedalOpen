@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 
 using InternalServices.Service.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace InternalServices.Service;
 
@@ -17,8 +18,10 @@ public class AuthenticationService : IAuthenticationService
 {
     private readonly IConfiguration _config;
     private readonly IUserService _userService;
-    public AuthenticationService(IConfiguration config, IUserService userService)
+    private readonly ILogger<AuthenticationService> _logger;
+    public AuthenticationService(IConfiguration config, IUserService userService, ILogger<AuthenticationService> logger)
     {
+        _logger = logger;
         _config = config;
         _userService = userService;
     }
@@ -62,7 +65,8 @@ public class AuthenticationService : IAuthenticationService
     private bool CorrectCredentials(UserLogin login)
     {
         var user = _userService.GetUserLogin(login.Username);
-        if (user == null)
+        _logger.LogInformation(user.ToString());
+        if (user == null)   
             throw new NotFoundException("Username or password is wrong");
         string hashedPassword = user.Password;
         return PasswordEncryption.Verify(login.Password,hashedPassword);

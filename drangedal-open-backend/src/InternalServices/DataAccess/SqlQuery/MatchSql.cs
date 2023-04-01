@@ -24,10 +24,10 @@ public static class MatchSql
         {
             if(match.NextMatch == Guid.Empty)
                 return String.Format("Insert into match (matchguid, matchtypeid)" + 
-                                     " values ('{0}', {2}); INSERT INTO matchinfo(matchguid, playerhome) values ('{0}', '{1}')",
+                                     " values ('{0}', {2}); INSERT INTO matchinfo(matchguid, playerhome, winner) values ('{0}', '{1}', '{1}')",
                     match.MatchGuid, match.HomePlayer, (int)match.MatchRules.MatchType);
             return String.Format("Insert into match (matchguid, matchtypeid, nextmatch)" + 
-                                 " values ('{0}', {2}, '{3}'); INSERT INTO matchinfo(matchguid, playerhome) values ('{0}', '{1}')",
+                                 " values ('{0}', {2}, '{3}'); INSERT INTO matchinfo(matchguid, playerhome, winner) values ('{0}', '{1}', '{1}')",
                 match.MatchGuid, match.HomePlayer, (int)match.MatchRules.MatchType,  match.NextMatch);
         }
         
